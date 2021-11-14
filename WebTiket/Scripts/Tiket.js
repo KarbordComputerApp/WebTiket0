@@ -406,12 +406,13 @@
                 fileName = fileData[0];
                 fileType = '.' + fileData[1];
 
-                await ziped(fileType, fileAttach, fileFullName);
+                let result = await ziped(fileType, fileAttach, fileFullName);
 
-                showNotification('تیکت ارسال شد', 1);
-                getErjDocXK();
-                $('#modal-ErjDocXK').modal('hide');
             };
+
+            showNotification('تیکت ارسال شد', 1);
+            getErjDocXK();
+            $('#modal-ErjDocXK').modal('hide');
 
         }
     }
@@ -422,7 +423,7 @@
 
 
         zip.file('temp' + fileType, fileAttach);
-        zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
+        let result = await zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
 
             var file = new File([content], fileFullName, { type: "zip" });
             var formData = new FormData();
@@ -628,22 +629,22 @@
                 fileData = fileFullName.split(".");
                 fileName = fileData[0];
                 fileType = '.' + fileData[1];
- 
+     
                 var zip = new JSZip();
- 
- 
+     
+     
                 zip.file('temp' + fileType, file.files[0]);
                 zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
- 
+     
                     var file = new File([content], fileFullName, { type: "zip" });
- 
+     
                     //file = $("#upload")[0].files[0];
- 
- 
+     
+     
                     attachDate = DateNow;
- 
+     
                     var formData = new FormData();
- 
+     
                     formData.append("SerialNumber", serialNumber);
                     formData.append("ProgName", "ERJ1");
                     formData.append("ModeCode", 1);
@@ -652,7 +653,7 @@
                     formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
- 
+     
                     ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData, true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
