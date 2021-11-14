@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7EF5454E-7B1E-4AF0-BB78-40FE62BAFA90}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebTiket</RootNamespace>
+    <AssemblyName>WebTiket</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Unit\IniFile.cs" />
+    <Compile Include="Controllers\Unit\UnitPublic.cs" />
+    <Compile Include="Controllers\Unit\UnitSweet2.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\all-themes.css" />
+    <Content Include="Content\css\app.min - Copy.css" />
+    <Content Include="Content\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\extra_pages.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\form.min.css" />
+    <Content Include="Content\css\ionicons.css" />
+    <Content Include="Content\css\ionicons.min.css" />
+    <Content Include="Content\css\jquery-ui.css" />
+    <Content Include="Content\css\materialize.min.css" />
+    <Content Include="Content\css\multi-select.css" />
+    <Content Include="Content\css\PersianDateTimePicker.css" />
+    <Content Include="Content\css\site.css" />
+    <Content Include="Content\css\stimulsoft.designer.office2013.whiteblue.css" />
+    <Content Include="Content\css\stimulsoft.viewer.office2013.whiteblue.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\stylelogin.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons.svg" />
+    <Content Include="Content\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons.woff" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.eot" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.ijmap" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.svg" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.ttf" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.woff" />
+    <Content Include="Content\fonts\MaterialIcons-Regular.woff2" />
+    <Content Include="Content\fonts\Vazir-Bold-FD-WOL.eot" />
+    <Content Include="Content\fonts\Vazir-Bold-FD-WOL.ttf" />
+    <Content Include="Content\fonts\Vazir-Bold-FD-WOL.woff" />
+    <Content Include="Content\fonts\Vazir-FD-WOL.eot" />
+    <Content Include="Content\fonts\Vazir-FD-WOL.ttf" />
+    <Content Include="Content\fonts\Vazir-FD-WOL.woff" />
+    <Content Include="Content\fonts\Vazir-FD-WOLReport.ttf" />
+    <Content Include="Content\img\Accept.jpg" />
+    <Content Include="Content\img\account-convert.png" />
+    <Content Include="Content\img\ajax-loader.gif" />
+    <Content Include="Content\img\barcode reader.png" />
+    <Content Include="Content\img\barcode.png" />
+    <Content Include="Content\img\bookmark.png" />
+    <Content Include="Content\img\bookmark_un.png" />
+    <Content Include="Content\img\docsels.png" />
+    <Content Include="Content\img\email.png" />
+    <Content Include="Content\img\Error.jpg" />
+    <Content Include="Content\img\Home\Desktop.jpg" />
+    <Content Include="Content\img\icon\add.png" />
+    <Content Include="Content\img\icon\Add_24x24.png" />
+    <Content Include="Content\img\icon\Calendar_24x24.png" />
+    <Content Include="Content\img\icon\Cancel_24x24.png" />
+    <Content Include="Content\img\icon\Check_24x24.png" />
+    <Content Include="Content\img\icon\delete.png" />
+    <Content Include="Content\img\icon\Delete_24x24.png" />
+    <Content Include="Content\img\icon\edit.png" />
+    <Content Include="Content\img\icon\Edit_24x24.png" />
+    <Content Include="Content\img\icon\fast_forward.png" />
+    <Content Include="Content\img\icon\fast_rev.png" />
+    <Content Include="Content\img\icon\Favorites_24x24.png" />
+    <Content Include="Content\img\icon\Find_24x24.png" />
+    <Content Include="Content\img\icon\first.png" />
+    <Content Include="Content\img\icon\Help_24x24.png" />
+    <Content Include="Content\img\icon\Information_24x24.png" />
+    <Content Include="Content\img\icon\Information_256x256.png" />
+    <Content Include="Content\img\icon\last.png" />
+    <Content Include="Content\img\icon\Log Out_24x24.png" />
+    <Content Include="Content\img\icon\Next_24x24.png" />
+    <Content Include="Content\img\icon\play.png" />
+    <Content Include="Content\img\icon\Play_24x24.png" />
+    <Content Include="Content\img\icon\play_rev.png" />
+    <Content Include="Content\img\icon\Previous_24x24.png" />
+    <Content Include="Content\img\icon\Print_24x24.png" />
+    <Content Include="Content\img\icon\Print_48x48.png" />
+    <Content Include="Content\img\icon\Redo_24x24.png" />
+    <Content Include="Content\img\icon\Refresh_24x24.png" />
+    <Content Include="Content\img\icon\Refresh_48x48.png" />
+    <Content Include="Content\img\icon\Remove_24x24.png" />
+    <Content Include="Content\img\icon\Remove_256x256.png" />
+    <Content Include="Content\img\icon\Save_24x24.png" />
+    <Content Include="Content\img\icon\Search_24x24.png" />
+    <Content Include="Content\img\icon\Send_24x24.png" />
+    <Content Include="Content\img\icon\Settings_24x24.png" />
+    <Content Include="Content\img\icon\Settings_256x256.png" />
+    <Content Include="Content\img\icon\Synchronize_24x24.png" />
+    <Content Include="Content\img\icon\Synchronize_256x256.png" />
+    <Content Include="Content\img\icon\Undo_24x24.png" />
+    <Content Include="Content\img\icon\Undo_256x256.png" />
+    <Content Include="Content\img\icon\user office_128x128.png" />
+    <Content Include="Content\img\icon\user office_24x24.png" />
+    <Content Include="Content\img\icon\User_24x24.png" />
+    <Content Include="Content\img\icon\User_256x256.png" />
+    <Content Include="Content\img\L.png" />
+    <Content Include="Content\img\L.zip" />
+    <Content Include="Content\img\L5.png" />
+    <Content Include="Content\img\L50.png" />
+    <Content Include="Content\img\L75.png" />
+    <Content Include="Content\img\list\attach_file.png" />
+    <Content Include="Content\img\list\calendar.png" />
+    <Content Include="Content\img\list\download.png" />
+    <Content Include="Content\img\list\man.png" />
+    <Content Include="Content\img\list\profile.png" />
+    <Content Include="Content\img\list\SearchKala.png" />
+    <Content Include="Content\img\list\streamline-icon-add-circle-alternate%4048x48.png" />
+    <Content Include="Content\img\list\streamline-icon-bin-2%4048x48.png" />
+    <Content Include="Content\img\list\streamline-icon-filter-2%4048x48 %281%29.png" />
+    <Content Include="Content\img\list\streamline-icon-filter-2%4048x48.png" />
+    <Content Include="Content\img\list\streamline-icon-navigation-back.png" />
+    <Content Include="Content\img\list\streamline-icon-navigation-first.png" />
+    <Content Include="Content\img\list\streamline-icon-navigation-last.png" />
+    <Content Include="Content\img\list\streamline-icon-navigation-next.png" />
+    <Content Include="Content\img\list\streamline-icon-pencil-write-2-alternate%4048x48.png" />
+    <Content Include="Content\img\list\streamline-icon-synchronize-arrows-1%4048x48.png" />
+    <Content Include="Content\img\LL.png" />
+    <Content Include="Content\img\LLL.png" />
+    <Content Include="Content\img\Loading.png" />
+    <Content Include="Content\img\loading.svg" />
+    <Content Include="Content\img\loading1.png" />
+    <Content Include="Content\img\Login\BackLogin.jpg" />
+    <Content Include="Content\img\Login\LogoLogin.png" />
+    <Content Include="Content\img\Login\streamline-icon-add-circle-bold%4048x48.png" />
+    <Content Include="Content\img\Login\streamline-icon-lock-5%4048x48.png" />
+    <Content Include="Content\img\Login\streamline-icon-single-man%4048x48.png" />
+    <Content Include="Content\img\Logo.jpg" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\mail.png" />
+    <Content Include="Content\img\new item\1.png" />
+    <Content Include="Content\img\new item\2.png" />
+    <Content Include="Content\img\new item\analytics-graph-bar.1.svg" />
+    <Content Include="Content\img\new item\analytics-graph-bar.2.svg" />
+    <Content Include="Content\img\new item\analytics-graph-bar.svg" />
+    <Content Include="Content\img\new item\arrow-back-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\arrowhead-down-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\arrowhead-up-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\baby-trolley.1.svg" />
+    <Content Include="Content\img\new item\baby-trolley.2.svg" />
+    <Content Include="Content\img\new item\baby-trolley.svg" />
+    <Content Include="Content\img\new item\baggage.1.svg" />
+    <Content Include="Content\img\new item\baggage.2.svg" />
+    <Content Include="Content\img\new item\baggage.svg" />
+    <Content Include="Content\img\new item\beach-parasol-water-1.1.svg" />
+    <Content Include="Content\img\new item\beach-parasol-water-1.2.svg" />
+    <Content Include="Content\img\new item\beach-parasol-water-1.svg" />
+    <Content Include="Content\img\new item\biking-person.1.svg" />
+    <Content Include="Content\img\new item\biking-person.2.svg" />
+    <Content Include="Content\img\new item\biking-person.svg" />
+    <Content Include="Content\img\new item\bin-2.1.svg" />
+    <Content Include="Content\img\new item\bin-2.2.svg" />
+    <Content Include="Content\img\new item\bin-2.svg" />
+    <Content Include="Content\img\new item\binocular.1.svg" />
+    <Content Include="Content\img\new item\binocular.2.svg" />
+    <Content Include="Content\img\new item\binocular.svg" />
+    <Content Include="Content\img\new item\bomb-grenade.1.svg" />
+    <Content Include="Content\img\new item\bomb-grenade.2.svg" />
+    <Content Include="Content\img\new item\bomb-grenade.svg" />
+    <Content Include="Content\img\new item\building-modern-1.1.svg" />
+    <Content Include="Content\img\new item\building-modern-1.2.svg" />
+    <Content Include="Content\img\new item\building-modern-1.svg" />
+    <Content Include="Content\img\new item\camera-flash.1.svg" />
+    <Content Include="Content\img\new item\camera-flash.2.svg" />
+    <Content Include="Content\img\new item\camera-flash.svg" />
+    <Content Include="Content\img\new item\chevron-down-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\chevron-up-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\coffee-cold.1.svg" />
+    <Content Include="Content\img\new item\coffee-cold.2.svg" />
+    <Content Include="Content\img\new item\coffee-cold.svg" />
+    <Content Include="Content\img\new item\coffee-machine.1.svg" />
+    <Content Include="Content\img\new item\coffee-machine.2.svg" />
+    <Content Include="Content\img\new item\coffee-machine.svg" />
+    <Content Include="Content\img\new item\cog.1.svg" />
+    <Content Include="Content\img\new item\cog.2.svg" />
+    <Content Include="Content\img\new item\cog.svg" />
+    <Content Include="Content\img\new item\content-ink-pen-write.1.svg" />
+    <Content Include="Content\img\new item\content-ink-pen-write.2.svg" />
+    <Content Include="Content\img\new item\content-ink-pen-write.svg" />
+    <Content Include="Content\img\new item\content-pen-3.1.svg" />
+    <Content Include="Content\img\new item\content-pen-3.2.svg" />
+    <Content Include="Content\img\new item\content-pen-3.svg" />
+    <Content Include="Content\img\new item\content-typing-machine.1.svg" />
+    <Content Include="Content\img\new item\content-typing-machine.2.svg" />
+    <Content Include="Content\img\new item\content-typing-machine.svg" />
+    <Content Include="Content\img\new item\couple-man-woman.1.svg" />
+    <Content Include="Content\img\new item\couple-man-woman.2.svg" />
+    <Content Include="Content\img\new item\couple-man-woman.svg" />
+    <Content Include="Content\img\new item\coupon-cut.1.svg" />
+    <Content Include="Content\img\new item\coupon-cut.2.svg" />
+    <Content Include="Content\img\new item\coupon-cut.svg" />
+    <Content Include="Content\img\new item\crypto-currency-bitcoin-imac.1.svg" />
+    <Content Include="Content\img\new item\crypto-currency-bitcoin-imac.2.svg" />
+    <Content Include="Content\img\new item\crypto-currency-bitcoin-imac.svg" />
+    <Content Include="Content\img\new item\dating-rose.1.svg" />
+    <Content Include="Content\img\new item\dating-rose.2.svg" />
+    <Content Include="Content\img\new item\dating-rose.svg" />
+    <Content Include="Content\img\new item\dating-smartphone-man.1.svg" />
+    <Content Include="Content\img\new item\dating-smartphone-man.2.svg" />
+    <Content Include="Content\img\new item\dating-smartphone-man.svg" />
+    <Content Include="Content\img\new item\design-tool-pen-station.1.svg" />
+    <Content Include="Content\img\new item\design-tool-pen-station.2.svg" />
+    <Content Include="Content\img\new item\design-tool-pen-station.svg" />
+    <Content Include="Content\img\new item\design-tool-quill-2.1.svg" />
+    <Content Include="Content\img\new item\design-tool-quill-2.2.svg" />
+    <Content Include="Content\img\new item\design-tool-quill-2.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-download.1.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-download.2.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-download.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-upload.1.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-upload.2.svg" />
+    <Content Include="Content\img\new item\desktop-monitor-upload.svg" />
+    <Content Include="Content\img\new item\diet-waist-1.1.svg" />
+    <Content Include="Content\img\new item\diet-waist-1.2.svg" />
+    <Content Include="Content\img\new item\diet-waist-1.svg" />
+    <Content Include="Content\img\new item\e-learning-monitor.1.svg" />
+    <Content Include="Content\img\new item\e-learning-monitor.2.svg" />
+    <Content Include="Content\img\new item\e-learning-monitor.svg" />
+    <Content Include="Content\img\new item\email-action-receive.1.svg" />
+    <Content Include="Content\img\new item\email-action-receive.2.svg" />
+    <Content Include="Content\img\new item\email-action-receive.svg" />
+    <Content Include="Content\img\new item\error.svg" />
+    <Content Include="Content\img\new item\exit.svg" />
+    <Content Include="Content\img\new item\filter-picture.1.svg" />
+    <Content Include="Content\img\new item\filter-picture.2.svg" />
+    <Content Include="Content\img\new item\filter-picture.svg" />
+    <Content Include="Content\img\new item\flag.1.svg" />
+    <Content Include="Content\img\new item\flag.2.svg" />
+    <Content Include="Content\img\new item\flag.svg" />
+    <Content Include="Content\img\new item\footwear-heels-ankle.1.svg" />
+    <Content Include="Content\img\new item\footwear-heels-ankle.2.svg" />
+    <Content Include="Content\img\new item\footwear-heels-ankle.svg" />
+    <Content Include="Content\img\new item\gauge-dashboard-1.1.svg" />
+    <Content Include="Content\img\new item\gauge-dashboard-1.2.svg" />
+    <Content Include="Content\img\new item\gauge-dashboard-1.svg" />
+    <Content Include="Content\img\new item\golf-hole.1.svg" />
+    <Content Include="Content\img\new item\golf-hole.2.svg" />
+    <Content Include="Content\img\new item\golf-hole.svg" />
+    <Content Include="Content\img\new item\graph-stats-circle.1.svg" />
+    <Content Include="Content\img\new item\graph-stats-circle.2.svg" />
+    <Content Include="Content\img\new item\graph-stats-circle.svg" />
+    <Content Include="Content\img\new item\hammer-1.1.svg" />
+    <Content Include="Content\img\new item\hammer-1.2.svg" />
+    <Content Include="Content\img\new item\hammer-1.svg" />
+    <Content Include="Content\img\new item\headphones-human.1.svg" />
+    <Content Include="Content\img\new item\headphones-human.2.svg" />
+    <Content Include="Content\img\new item\headphones-human.svg" />
+    <Content Include="Content\img\new item\human-resources-search-employees.1.svg" />
+    <Content Include="Content\img\new item\human-resources-search-employees.2.svg" />
+    <Content Include="Content\img\new item\human-resources-search-employees.svg" />
+    <Content Include="Content\img\new item\insurance-card.1.svg" />
+    <Content Include="Content\img\new item\insurance-card.2.svg" />
+    <Content Include="Content\img\new item\insurance-card.svg" />
+    <Content Include="Content\img\new item\lab-flask-experiment.1.svg" />
+    <Content Include="Content\img\new item\lab-flask-experiment.2.svg" />
+    <Content Include="Content\img\new item\lab-flask-experiment.svg" />
+    <Content Include="Content\img\new item\landmark-japan-shrine.1.svg" />
+    <Content Include="Content\img\new item\landmark-japan-shrine.2.svg" />
+    <Content Include="Content\img\new item\landmark-japan-shrine.svg" />
+    <Content Include="Content\img\new item\laptop-smiley-1.1.svg" />
+    <Content Include="Content\img\new item\laptop-smiley-1.2.svg" />
+    <Content Include="Content\img\new item\laptop-smiley-1.svg" />
+    <Content Include="Content\img\new item\lighter.1.svg" />
+    <Content Include="Content\img\new item\lighter.2.svg" />
+    <Content Include="Content\img\new item\lighter.svg" />
+    <Content Include="Content\img\new item\like-1.1.svg" />
+    <Content Include="Content\img\new item\like-1.2.svg" />
+    <Content Include="Content\img\new item\like-1.svg" />
+    <Content Include="Content\img\new item\line.png" />
+    <Content Include="Content\img\new item\login-2.1.svg" />
+    <Content Include="Content\img\new item\login-2.2.svg" />
+    <Content Include="Content\img\new item\login-2.svg" />
+    <Content Include="Content\img\new item\love-boat.1.svg" />
+    <Content Include="Content\img\new item\love-boat.2.svg" />
+    <Content Include="Content\img\new item\love-boat.svg" />
+    <Content Include="Content\img\new item\maps-pin.1.svg" />
+    <Content Include="Content\img\new item\maps-pin.2.svg" />
+    <Content Include="Content\img\new item\maps-pin.svg" />
+    <Content Include="Content\img\new item\medical-personnel-doctor.1.svg" />
+    <Content Include="Content\img\new item\medical-personnel-doctor.2.svg" />
+    <Content Include="Content\img\new item\medical-personnel-doctor.svg" />
+    <Content Include="Content\img\new item\megaphone-1.1.svg" />
+    <Content Include="Content\img\new item\megaphone-1.2.svg" />
+    <Content Include="Content\img\new item\megaphone-1.svg" />
+    <Content Include="Content\img\new item\messages-people-person-bubble-oval.1.svg" />
+    <Content Include="Content\img\new item\messages-people-person-bubble-oval.2.svg" />
+    <Content Include="Content\img\new item\messages-people-person-bubble-oval.svg" />
+    <Content Include="Content\img\new item\minus-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\mobile-phone-2.1.svg" />
+    <Content Include="Content\img\new item\mobile-phone-2.2.svg" />
+    <Content Include="Content\img\new item\mobile-phone-2.svg" />
+    <Content Include="Content\img\new item\modern-tv-3d-glasses.1.svg" />
+    <Content Include="Content\img\new item\modern-tv-3d-glasses.2.svg" />
+    <Content Include="Content\img\new item\modern-tv-3d-glasses.svg" />
+    <Content Include="Content\img\new item\money-wallet-open.1.svg" />
+    <Content Include="Content\img\new item\money-wallet-open.2.svg" />
+    <Content Include="Content\img\new item\money-wallet-open.svg" />
+    <Content Include="Content\img\new item\monkey.1.svg" />
+    <Content Include="Content\img\new item\monkey.2.svg" />
+    <Content Include="Content\img\new item\monkey.svg" />
+    <Content Include="Content\img\new item\mood-happy.1.svg" />
+    <Content Include="Content\img\new item\mood-happy.2.svg" />
+    <Content Include="Content\img\new item\mood-happy.svg" />
+    <Content Include="Content\img\new item\mouse.1.svg" />
+    <Content Include="Content\img\new item\mouse.2.svg" />
+    <Content Include="Content\img\new item\mouse.svg" />
+    <Content Include="Content\img\new item\nautic-sports-sailing-person.1.svg" />
+    <Content Include="Content\img\new item\nautic-sports-sailing-person.2.svg" />
+    <Content Include="Content\img\new item\nautic-sports-sailing-person.svg" />
+    <Content Include="Content\img\new item\office-work-wireless.1.svg" />
+    <Content Include="Content\img\new item\office-work-wireless.2.svg" />
+    <Content Include="Content\img\new item\office-work-wireless.svg" />
+    <Content Include="Content\img\new item\optimization-timer-1.1.svg" />
+    <Content Include="Content\img\new item\optimization-timer-1.2.svg" />
+    <Content Include="Content\img\new item\optimization-timer-1.svg" />
+    <Content Include="Content\img\new item\outdoors-tree-valley.1.svg" />
+    <Content Include="Content\img\new item\outdoors-tree-valley.2.svg" />
+    <Content Include="Content\img\new item\outdoors-tree-valley.svg" />
+    <Content Include="Content\img\new item\pencil-2.1.svg" />
+    <Content Include="Content\img\new item\pencil-2.2.svg" />
+    <Content Include="Content\img\new item\pencil-2.svg" />
+    <Content Include="Content\img\new item\people-man-graduate.1.svg" />
+    <Content Include="Content\img\new item\people-man-graduate.2.svg" />
+    <Content Include="Content\img\new item\people-man-graduate.svg" />
+    <Content Include="Content\img\new item\people-woman-glasses-1.1.svg" />
+    <Content Include="Content\img\new item\people-woman-glasses-1.2.svg" />
+    <Content Include="Content\img\new item\people-woman-glasses-1.svg" />
+    <Content Include="Content\img\new item\phone-actions-ring.1.svg" />
+    <Content Include="Content\img\new item\phone-actions-ring.2.svg" />
+    <Content Include="Content\img\new item\phone-actions-ring.svg" />
+    <Content Include="Content\img\new item\pin-monitor.1.svg" />
+    <Content Include="Content\img\new item\pin-monitor.2.svg" />
+    <Content Include="Content\img\new item\pin-monitor.svg" />
+    <Content Include="Content\img\new item\pin.1.svg" />
+    <Content Include="Content\img\new item\pin.2.svg" />
+    <Content Include="Content\img\new item\pin.svg" />
+    <Content Include="Content\img\new item\plane-trip-international.1.svg" />
+    <Content Include="Content\img\new item\plane-trip-international.2.svg" />
+    <Content Include="Content\img\new item\plane-trip-international.svg" />
+    <Content Include="Content\img\new item\plus-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\presentation-board-graph.1.svg" />
+    <Content Include="Content\img\new item\presentation-board-graph.2.svg" />
+    <Content Include="Content\img\new item\presentation-board-graph.svg" />
+    <Content Include="Content\img\new item\print-text.1.svg" />
+    <Content Include="Content\img\new item\print-text.2.svg" />
+    <Content Include="Content\img\new item\print-text.svg" />
+    <Content Include="Content\img\new item\programming-flag.1.svg" />
+    <Content Include="Content\img\new item\programming-flag.2.svg" />
+    <Content Include="Content\img\new item\programming-flag.svg" />
+    <Content Include="Content\img\new item\rat.1.svg" />
+    <Content Include="Content\img\new item\rat.2.svg" />
+    <Content Include="Content\img\new item\rat.svg" />
+    <Content Include="Content\img\new item\rooster.1.svg" />
+    <Content Include="Content\img\new item\rooster.2.svg" />
+    <Content Include="Content\img\new item\rooster.svg" />
+    <Content Include="Content\img\new item\science-dna.1.svg" />
+    <Content Include="Content\img\new item\science-dna.2.svg" />
+    <Content Include="Content\img\new item\science-dna.svg" />
+    <Content Include="Content\img\new item\screen-1.1.svg" />
+    <Content Include="Content\img\new item\screen-1.2.svg" />
+    <Content Include="Content\img\new item\screen-1.svg" />
+    <Content Include="Content\img\new item\search-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\send-email-2.1.svg" />
+    <Content Include="Content\img\new item\send-email-2.2.svg" />
+    <Content Include="Content\img\new item\send-email-2.svg" />
+    <Content Include="Content\img\new item\shipment-upload.1.svg" />
+    <Content Include="Content\img\new item\shipment-upload.2.svg" />
+    <Content Include="Content\img\new item\shipment-upload.svg" />
+    <Content Include="Content\img\new item\shop-cashier-man.1.svg" />
+    <Content Include="Content\img\new item\shop-cashier-man.2.svg" />
+    <Content Include="Content\img\new item\shop-cashier-man.svg" />
+    <Content Include="Content\img\new item\shop-cashier-woman.1.svg" />
+    <Content Include="Content\img\new item\shop-cashier-woman.2.svg" />
+    <Content Include="Content\img\new item\shop-cashier-woman.svg" />
+    <Content Include="Content\img\new item\shopping-bag-heart.1.svg" />
+    <Content Include="Content\img\new item\shopping-bag-heart.2.svg" />
+    <Content Include="Content\img\new item\shopping-bag-heart.svg" />
+    <Content Include="Content\img\new item\shopping-bag-tag-1.1.svg" />
+    <Content Include="Content\img\new item\shopping-bag-tag-1.2.svg" />
+    <Content Include="Content\img\new item\shopping-bag-tag-1.svg" />
+    <Content Include="Content\img\new item\shopping-cart-download.1.svg" />
+    <Content Include="Content\img\new item\shopping-cart-download.2.svg" />
+    <Content Include="Content\img\new item\shopping-cart-download.svg" />
+    <Content Include="Content\img\new item\show-hat-magician-1.1.svg" />
+    <Content Include="Content\img\new item\show-hat-magician-1.2.svg" />
+    <Content Include="Content\img\new item\show-hat-magician-1.svg" />
+    <Content Include="Content\img\new item\skull-1.1.svg" />
+    <Content Include="Content\img\new item\skull-1.2.svg" />
+    <Content Include="Content\img\new item\skull-1.svg" />
+    <Content Include="Content\img\new item\skunk.1.svg" />
+    <Content Include="Content\img\new item\skunk.2.svg" />
+    <Content Include="Content\img\new item\skunk.svg" />
+    <Content Include="Content\img\new item\square-svgrepo-com.svg" />
+    <Content Include="Content\img\new item\stamps-famous.1.svg" />
+    <Content Include="Content\img\new item\stamps-famous.2.svg" />
+    <Content Include="Content\img\new item\stamps-famous.svg" />
+    <Content Include="Content\img\new item\tablet-touch.1.svg" />
+    <Content Include="Content\img\new item\tablet-touch.2.svg" />
+    <Content Include="Content\img\new item\tablet-touch.svg" />
+    <Content Include="Content\img\new item\taking-pictures-circle.1.svg" />
+    <Content Include="Content\img\new item\taking-pictures-circle.2.svg" />
+    <Content Include="Content\img\new item\taking-pictures-circle.svg" />
+    <Content Include="Content\img\new item\target-center-2.1.svg" />
+    <Content Include="Content\img\new item\target-center-2.2.svg" />
+    <Content Include="Content\img\new item\target-center-2.svg" />
+    <Content Include="Content\img\new item\video-game-gamasutra.1.svg" />
+    <Content Include="Content\img\new item\video-game-gamasutra.2.svg" />
+    <Content Include="Content\img\new item\video-game-gamasutra.svg" />
+    <Content Include="Content\img\new item\video-game-mario-3.1.svg" />
+    <Content Include="Content\img\new item\video-game-mario-3.2.svg" />
+    <Content Include="Content\img\new item\video-game-mario-3.svg" />
+    <Content Include="Content\img\new item\video-game-mario-enemy.1.svg" />
+    <Content Include="Content\img\new item\video-game-mario-enemy.2.svg" />
+    <Content Include="Content\img\new item\video-game-mario-enemy.svg" />
+    <Content Include="Content\img\new item\video-player-1.1.svg" />
+    <Content Include="Content\img\new item\video-player-1.2.svg" />
+    <Content Include="Content\img\new item\video-player-1.svg" />
+    <Content Include="Content\img\new item\video-player-cloud.1.svg" />
+    <Content Include="Content\img\new item\video-player-cloud.2.svg" />
+    <Content Include="Content\img\new item\video-player-cloud.svg" />
+    <Content Include="Content\img\new item\video-player-monitor.1.svg" />
+    <Content Include="Content\img\new item\video-player-monitor.2.svg" />
+    <Content Include="Content\img\new item\video-player-monitor.svg" />
+    <Content Include="Content\img\new item\view-off.1.svg" />
+    <Content Include="Content\img\new item\view-off.2.svg" />
+    <Content Include="Content\img\new item\view-off.svg" />
+    <Content Include="Content\img\new item\view.1.svg" />
+    <Content Include="Content\img\new item\view.2.svg" />
+    <Content Include="Content\img\new item\view.svg" />
+    <Content Include="Content\img\new item\warehouse-cart-packages.1.svg" />
+    <Content Include="Content\img\new item\warehouse-cart-packages.2.svg" />
+    <Content Include="Content\img\new item\warehouse-cart-packages.svg" />
+    <Content Include="Content\img\new item\warehouse-storage-3.1.svg" />
+    <Content Include="Content\img\new item\warehouse-storage-3.2.svg" />
+    <Content Include="Content\img\new item\warehouse-storage-3.svg" />
+    <Content Include="Content\img\new item\warning.svg" />
+    <Content Include="Content\img\new item\wench-double.1.svg" />
+    <Content Include="Content\img\new item\wench-double.2.svg" />
+    <Content Include="Content\img\new item\wench-double.svg" />
+    <Content Include="Content\img\new item\whale-body.1.svg" />
+    <Content Include="Content\img\new item\whale-body.2.svg" />
+    <Content Include="Content\img\new item\whale-body.svg" />
+    <Content Include="Content\img\new item\wireless-payment-credit-card-dollar.1.svg" />
+    <Content Include="Content\img\new item\wireless-payment-credit-card-dollar.2.svg" />
+    <Content Include="Content\img\new item\wireless-payment-credit-card-dollar.svg" />
+    <Content Include="Content\img\notificationErja.png" />
+    <Content Include="Content\img\profile.png" />
+    <Content Include="Content\img\repair-config.svg" />
+    <Content Include="Content\img\repair-sal.svg" />
+    <Content Include="Content\img\Repair.png" />
+    <Content Include="Content\img\Repair1.png" />
+    <Content Include="Content\img\SanadAnbar.png" />
+    <Content Include="Content\img\SanadAnbarWhite.png" />
+    <Content Include="Content\img\sanad\attachment.png" />
+    <Content Include="Content\img\sanad\list-add.png" />
+    <Content Include="Content\img\sanad\man.png" />
+    <Content Include="Content\img\sanad\paginate-filter-text.png" />
+    <Content Include="Content\img\sanad\paper-write.png" />
+    <Content Include="Content\img\sanad\paragraph-two-column.png" />
+    <Content Include="Content\img\sanad\streamline-icon-add-circle-bold%4048x48.png" />
+    <Content Include="Content\img\sanad\streamline-icon-logout-alternate%4048x48.png" />
+    <Content Include="Content\img\sanad\streamline-icon-pencil-write-3-alternate%4048x48.png" />
+    <Content Include="Content\img\sanad\streamline-icon-print-text%4048x48.png" />
+    <Content Include="Content\img\sanad\synchronize-arrows-square-warning.png" />
+    <Content Include="Content\img\send.svg" />
+    <Content Include="Content\img\Setting\streamline-icon-calendar-3%4048x48.png" />
+    <Content Include="Content\img\Setting\streamline-icon-cd-partition%4048x48.png" />
+    <Content Include="Content\img\Setting\streamline-icon-checklist%4048x48.png" />
+    <Content Include="Content\img\start.jpg" />
+    <Content Include="Content\img\streamline-icon-alarm-bell-1%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-alarm-bell-2%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-arrow-button-down-2%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-calendar-3%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-cd-partition%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-checklist%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-cog-1%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-house-2%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-navigation-menu-1%4048x48.png" />
+    <Content Include="Content\img\streamline-icon-navigation-menu-vertical%4048x48.png" />
+    <Content Include="Content\img\Sweet\streamline-icon-alert-triangle%4048x48.png" />
+    <Content Include="Content\img\Sweet\streamline-icon-check-circle-1-alternate%4048x48.png" />
+    <Content Include="Content\img\Sweet\streamline-icon-question-help-circle%4048x48.png" />
+    <Content Include="Content\img\tab-plus.png" />
+    <Content Include="Content\img\tabs.png" />
+    <Content Include="Content\img\tik.png" />
+    <Content Include="Content\img\user.png" />
+    <Content Include="Content\img\view.svg" />
+    <Content Include="Content\img\Warning.jpg" />
+    <Content Include="Content\js\admin.js" />
+    <Content Include="Content\js\advanced-form-elements.js" />
+    <Content Include="Content\js\app.min.js" />
+    <Content Include="Content\js\basic.js" />
+    <Content Include="Content\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\carousel.js" />
+    <Content Include="Content\js\chart.min.js" />
+    <Content Include="Content\js\collapse.js" />
+    <Content Include="Content\js\dialogs.js" />
+    <Content Include="Content\js\farsiInput.js" />
+    <Content Include="Content\js\form-validation.js" />
+    <Content Include="Content\js\form.min.js" />
+    <Content Include="Content\js\index.js" />
+    <Content Include="Content\js\jalaali.js" />
+    <Content Include="Content\js\jquery ui\jquery-ui.min.css" />
+    <Content Include="Content\js\jquery ui\jquery-ui.min.js" />
+    <Content Include="Content\js\jquery ui\jquery.js" />
+    <Content Include="Content\js\jquery-knob.js" />
+    <Content Include="Content\js\jquery-ui.js" />
+    <Content Include="Content\js\jquery.md.bootstrap.datetimepicker.js" />
+    <Content Include="Content\js\jquery.md.bootstrap.datetimepicker.style.css" />
+    <Content Include="Content\js\jquery.md5.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\jquery.multi-select.js" />
+    <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\js\jszip.min.js" />
+    <Content Include="Content\js\knob.js" />
+    <Content Include="Content\js\knockout-3.5.0.js" />
+    <Content Include="Content\js\materialize.min.js" />
+    <Content Include="Content\js\notifications.js" />
+    <Content Include="Content\js\num2persian-min.js" />
+    <Content Include="Content\js\pages.js" />
+    <Content Include="Content\js\require.js" />
+    <Content Include="Content\js\sortable-nestable.js" />
+    <Content Include="Content\js\sparkline-data.js" />
+    <Content Include="Content\js\sweet2.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\Tiket.js" />
+    <Content Include="Scripts\PublicAFI.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutNew.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Tiket.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51091</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51091/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
