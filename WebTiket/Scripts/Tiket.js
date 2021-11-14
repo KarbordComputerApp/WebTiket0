@@ -18,7 +18,7 @@
     self.DocAttachList = ko.observableArray([]); // ليست پیوست
 
     var counterAttach = 0
-    var fileList = [];
+    var fileList = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
 
     getDateServer();
 
@@ -301,7 +301,7 @@
         $("#motaghazi").val('');
         $('#bodyDocAttach').empty();
         counterAttach = 0;
-        fileList = [];
+        fileList = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
     })
 
 
@@ -330,89 +330,117 @@
 
 
     //Add   ذخیره تیکت
-    function SaveErjDocXK() {
+    async function SaveErjDocXK() {
 
         natijeh = $("#Result").val();
         motaghazi = $("#motaghazi").val();
 
-        if (natijeh == '')
+        if (natijeh == '' && counterAttach > 0)
             natijeh = 'به پیوست مراجعه شود';
 
-        var ErjSaveTicket_HI = {
-            SerialNumber: 0,
-            DocDate: DateNow,
-            UserCode: username,
-            Status: "",
-            Spec: "",
-            LockNo: lockNumber,
-            Text: natijeh,
-            F01: '',
-            F02: '',
-            F03: '',
-            F04: '',
-            F05: '',
-            F06: '',
-            F07: '',
-            F08: '',
-            F09: '',
-            F10: '',
-            F11: '',
-            F12: '',
-            F13: '',
-            F14: '',
-            F15: '',
-            F16: '',
-            F17: '',
-            F18: '',
-            F19: '',
-            F20: '',
-            Motaghazi: motaghazi,
-        }
-        ajaxFunction(ErjSaveTicketUri + ace + '/' + sal + '/' + group + '/', 'POST', ErjSaveTicket_HI).done(function (data) {
-            serialNumber = data;
+        if (natijeh == '' && counterAttach == 0)
+            return showNotification('تیکت خالی است', 0);
+        else {
+            var ErjSaveTicket_HI = {
+                SerialNumber: 0,
+                DocDate: DateNow,
+                UserCode: username,
+                Status: "",
+                Spec: "",
+                LockNo: lockNumber,
+                Text: natijeh,
+                F01: '',
+                F02: '',
+                F03: '',
+                F04: '',
+                F05: '',
+                F06: '',
+                F07: '',
+                F08: '',
+                F09: '',
+                F10: '',
+                F11: '',
+                F12: '',
+                F13: '',
+                F14: '',
+                F15: '',
+                F16: '',
+                F17: '',
+                F18: '',
+                F19: '',
+                F20: '',
+                Motaghazi: motaghazi,
+            }
+            ajaxFunction(ErjSaveTicketUri + ace + '/' + sal + '/' + group + '/', 'POST', ErjSaveTicket_HI).done(function (data) {
+                serialNumber = data;
+
+                /* var zip = new JSZip();
+
+
+                 zip.file('temp' + fileType, fileAttach);
+                 zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
+
+                     var file = new File([content], fileFullName[i], { type: "zip" });
+                     var formData = new FormData();
+                     formData.append("SerialNumber", serialNumber);
+                     formData.append("ProgName", "ERJ1");
+                     formData.append("ModeCode", 102);
+                     formData.append("BandNo", 0);
+                     formData.append("Code", "");
+                     formData.append("Comm", "مدرک پیوست - " + DateNow + " - " + fileName);
+                     formData.append("FName", fileFullName);
+                     formData.append("Atch", file);
+
+                     ajaxFunctionUpload(ErjDocAttach_SaveUri + ace + '/' + sal + '/' + group, formData, false).done(function (response) {
+                         getErjDocXK();
+                     })
+                 });*/
+
+            });
 
             for (var i = 1; i <= counterAttach; i++) {
 
-                file = fileList[counterAttach];
-                fileFullName = file.files[0].name;
+                fileAttach = fileList[i];
+                fileFullName = fileAttach.name;
                 fileData = fileFullName.split(".");
                 fileName = fileData[0];
                 fileType = '.' + fileData[1];
 
-                var zip = new JSZip();
+                await ziped(fileType, fileAttach, fileFullName);
+
+                showNotification('تیکت ارسال شد', 1);
+                getErjDocXK();
+                $('#modal-ErjDocXK').modal('hide');
+            };
+
+        }
+    }
 
 
-                zip.file('temp' + fileType, file.files[0]);
-                zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
-
-                    var file = new File([content], fileFullName, { type: "zip" });
-                    var formData = new FormData();
-                    formData.append("SerialNumber", serialNumber);
-                    formData.append("ProgName", "ERJ1");
-                    formData.append("ModeCode", 102);
-                    formData.append("BandNo", 0);
-                    formData.append("Code", "");
-                    formData.append("Comm", "مدرک پیوست - " + DateNow + " - " + fileName);
-                    formData.append("FName", fileFullName);
-                    formData.append("Atch", file);
-
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + ace + '/' + sal + '/' + group, formData, false).done(function (response) {
-                        getErjDocXK();
-                    })
-                });
+    async function ziped(fileType, fileAttach, fileFullName) {
+        var zip = new JSZip();
 
 
-            }
+        zip.file('temp' + fileType, fileAttach);
+        zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
 
-            showNotification('تیکت ارسال شد', 1);
-            getErjDocXK();
-            $('#modal-ErjDocXK').modal('hide');
-            
-           
+            var file = new File([content], fileFullName, { type: "zip" });
+            var formData = new FormData();
+            formData.append("SerialNumber", serialNumber);
+            formData.append("ProgName", "ERJ1");
+            formData.append("ModeCode", 102);
+            formData.append("BandNo", 0);
+            formData.append("Code", "");
+            formData.append("Comm", "مدرک پیوست - " + DateNow + " - " + fileName);
+            formData.append("FName", fileFullName);
+            formData.append("Atch", file);
+
+            ajaxFunctionUpload(ErjDocAttach_SaveUri + ace + '/' + sal + '/' + group, formData, false).done(function (response) {
+
+            })
         });
 
-
-    };
+    }
 
 
     $('#saveErjDocXK').click(function () {
@@ -540,11 +568,11 @@
 
     $('#attachFile').click(function () {
         //if (serialNumber == 0) {
-       //     SaveErjDocXK();
+        //     SaveErjDocXK();
         //}
 
         $('#modal-DocAttachSend').modal('show');
-       // getDocAttachList(serialNumber);
+        // getDocAttachList(serialNumber);
 
     });
 
@@ -562,7 +590,7 @@
         counterAttach = counterAttach + 1;*/
     });
 
-    
+
 
     this.AddFile = function (data, e) {
         var dataFile;
@@ -583,38 +611,39 @@
             if (result.value) {
 
                 counterAttach = counterAttach + 1;
-                fileList[counterAttach] = document.getElementById("AddFiles");
-                fileFullName = fileList[counterAttach].files[0].name;
+                a = document.getElementById("AddFiles").files[0];
+                fileList[counterAttach] = a;
+                fileFullName = fileList[counterAttach].name;
                 fileData = fileFullName.split(".");
                 fileName = fileData[0];
-                
+
                 $('#bodyDocAttach').append(
                     '<tr>' +
                     '<td>' + "مدرک پیوست - " + DateNow + " - " + fileName + '</td>' +
                     '</tr>'
                 );
-                
+
 
                 /*fileFullName = file.files[0].name;
                 fileData = fileFullName.split(".");
                 fileName = fileData[0];
                 fileType = '.' + fileData[1];
-
+ 
                 var zip = new JSZip();
-
-
+ 
+ 
                 zip.file('temp' + fileType, file.files[0]);
                 zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
-
+ 
                     var file = new File([content], fileFullName, { type: "zip" });
-
+ 
                     //file = $("#upload")[0].files[0];
-
-
+ 
+ 
                     attachDate = DateNow;
-
+ 
                     var formData = new FormData();
-
+ 
                     formData.append("SerialNumber", serialNumber);
                     formData.append("ProgName", "ERJ1");
                     formData.append("ModeCode", 1);
@@ -623,7 +652,7 @@
                     formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
-
+ 
                     ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData, true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
@@ -636,7 +665,7 @@
     $('#DelAllAttach').click(function () {
         $('#bodyDocAttach').empty();
         counterAttach = 0;
-        fileList = [];
+        fileList = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
     });
 
 
