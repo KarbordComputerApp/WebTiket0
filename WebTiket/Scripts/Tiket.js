@@ -96,24 +96,40 @@
     getRprtColsList(true, username);
 
 
-
-
     //Get ErjDocXK 
     function getErjDocXK() {
         var ErjDocXKObject = {
             LockNo: lockNumber,
             ModeCode: '204',
         }
-        ajaxFunction(ErjDocXKUri + ace + '/' + sal + '/' + group + '/', 'Post', ErjDocXKObject).done(function (data) {
-            self.ErjDocXKList(data)
+        ajaxFunction(ErjDocXKUri + ace + '/' + sal + '/' + group + '/', 'Post', ErjDocXKObject).done(function (dataDocXK) {
+            
+
+            var Object_TicketStatus = {
+                SerialNumber: ''
+            }
+            ajaxFunction(TicketStatusUri + ace + '/' + sal + '/' + group + '/', 'Post', Object_TicketStatus, false).done(function (dataTicketStatus) {
+
+                for (var i = 0; i < dataDocXK.length; i++) {
+
+                    for (var j = 0; j < dataTicketStatus.length; j++) {
+                        if (dataDocXK[i].SerialNumber == dataTicketStatus[j].SerialNumber)
+                            dataDocXK[i].Status = dataTicketStatus[j].TicketStatusSt;
+                    }
+                }
+
+                self.ErjDocXKList(dataDocXK);
+            });
         });
     }
+
     getErjDocXK();
 
 
 
 
-    self.getTicketStatus = function (serial) {
+
+    /*self.getTicketStatus = function (serial) {
         v = "";
         var Object_TicketStatus = {
             SerialNumber: serial,
@@ -127,7 +143,7 @@
         });
         return v
 
-    }
+    }*/
 
 
     //Get DocAttach List
@@ -908,11 +924,8 @@
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
-
-            '<td data-bind="text: $root.getTicketStatus(DocNo)"></td>' +
-            
-            
-            //CreateTableTd('Status', 0, 0, 0, data) +
+            CreateTableTd('Status', 0, 1, 0, data) +
+            //'<td data-bind="text: $root.getTicketStatus(DocNo)"></td>' +
             CreateTableTd('Text', 0, 0, 0, data) +
             CreateTableTd('EghdamName', 0, 0, 0, data) +
             CreateTableTd('TanzimName', 0, 0, 0, data) +
@@ -966,58 +979,22 @@
             text += 'Hidden ';
 
         color = "\'" + color + "\'";
-
-        shamsiDateTemp = "\'" + DateNow + "\'";
+        daryaft = "\'" + "دریافت شد" + "\'"
+        payan = "\'" + "پایان یافته" + "\'"
+        karshenas = "\'" + "در دست کارشناس" + "\'"
+        bateh = "\'" + "باطل" + "\'"
 
         switch (no) {
             case 0:
                 text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
                 break;
             case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' == 0 ? \'0\' : NumberToNumberString(' + field + '), style: { color: ' + field + ' < 0 ? \'red\' : \'black\' }"></td>'
-                break;
-            case 2:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\', style: { color: ' + field + ' < 0 ? \'red\' : \'#3f4853\' }"" style="text-align: right;"></td>'
-                break;
-            case 3:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ' != null ? NumberToNumberString(parseFloat(' + field + ')) : \'0\'" style="text-align: right;"></td>'
-                break;
-            case 4:
-                text += 'data-bind="text: ' + field + ' , click: $root.View' + field + ' " class="ellipsis"></td>';
-                break;
-            case 5:
-                text += 'data-bind="click: $root.View' + field + ', style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  } " style="font-size: 10px;color: #a7a3a3cc;font-style: italic" >برای نمایش کلیک کنید</td>';
-                break;
-
-            case 6:
-                text += 'data-bind="text: ' + field + ',style: { color: ' + field + ' < ' + shamsiDateTemp + '   ? \'red\' : \'\'}"></td>';
+                text += 'style="direction: ltr;" data-bind="text: ' + field + ', style: { color: ' + field + ' == ' + payan + ' ? \'green\' : ' + field + ' == ' + karshenas + ' ? \'blue\' : ' + field + ' == ' + bateh +' ? \'red\' : \'black\' }"></td>'
                 break;
 
         }
         return text;
     }
-
-    function CreateTableTdSum(field, no, data) {
-        text = '<td style="background-color: #e37d228f !important;"';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        switch (no) {
-            case 0:
-                text += 'id="textTotal"></td>';
-                break;
-            case 1:
-                text += '></td>'
-                break;
-            case 2:
-                text += 'id="total' + field + '" style="direction: ltr;"></td>'
-                break;
-        }
-        return text;
-    }
-
 
     function CreateTableTdSearch(field, data) {
         text = '<td ';

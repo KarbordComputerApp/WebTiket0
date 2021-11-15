@@ -624,6 +624,7 @@
     <Content Include="Content\img\Warning.jpg" />
     <Content Include="Content\js\admin.js" />
     <Content Include="Content\js\advanced-form-elements.js" />
+    <Content Include="Content\js\aes.js" />
     <Content Include="Content\js\app.min.js" />
     <Content Include="Content\js\basic.js" />
     <Content Include="Content\js\bootstrap-colorpicker.js" />

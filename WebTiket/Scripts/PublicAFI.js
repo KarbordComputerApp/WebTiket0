@@ -27,7 +27,7 @@ function getAccountData(lock) {
 
     ajaxFunctionAccount(AccountUri + 'tiket' + '/' + 'tiket', 'GET').done(function (data) {
         if (data === 0) {
-            return showNotification(' نام مجوز ورود یا کلمه عبور اشتباه است ', 0);
+            return showNotification(' اطلاعات قفل یافت نشد ', 0);
         }
         else {
             serverAddress = data.AddressApi;
@@ -36,15 +36,17 @@ function getAccountData(lock) {
 
             ajaxFunctionAccount(AccountUri + lock, 'GET').done(function (data) {
                 if (data === 0) {
-                    return showNotification(' نام مجوز ورود یا کلمه عبور اشتباه است ', 0);
+                    lockNumber = "";
+                    localStorage.setItem("lockNumber", "");
+                    $("#Tiket_Menu").hide();
+                    return showNotification(' اطلاعات قفل یافت نشد ', 0);
                 }
                 else {
-                    lockNumber = data.lockNumber;
-                    localStorage.setItem("lockNumber", data.lockNumber);
-                   
+                    lockNumber = lock;
+                    $("#Tiket_Menu").show();
+                    localStorage.setItem("lockNumber", lock);
                 }
             });
-
         }
     });
 
@@ -56,8 +58,14 @@ function getAccountData(lock) {
 url = window.location.href;
 lock = url.split('?')[1];
 
-if (lock != null)
+
+
+
+
+if (lock != null) {
+    lock = Math.round(lock / 114820000008); 
     getAccountData(lock);
+}
 
 
 function ajaxFunctionAccount(uri, method, sync, data) {
