@@ -1,4 +1,5 @@
 ﻿var serverAccount = 'http://127.0.0.1:902/api/';
+//var serverAccount = 'http://192.168.0.114:902/api/';
 //var serverAccount = 'http://185.208.174.64:812/api/';
 
 var AccountUri = serverAccount + 'Account/'; // آدرس حساب

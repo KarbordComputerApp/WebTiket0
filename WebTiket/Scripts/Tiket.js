@@ -3,7 +3,9 @@
 
     self.ErjDocXKList = ko.observableArray([]); // لیست گزارش  
 
-    var ErjDocXKUri = server + '/api/Web_Data/Web_ErjDocXK/'; // آدرس مشخصات ستون ها 
+    var ErjDocXKUri = server + '/api/Web_Data/Web_ErjDocXK/'; // آدرس تیکت ها  
+    var TicketStatusUri = server + '/api/Web_Data/Web_TicketStatus/'; // آدرس وضعیت تیکت ها 
+
     var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
     var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
     var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
@@ -109,6 +111,25 @@
     getErjDocXK();
 
 
+
+
+    self.getTicketStatus = function (serial) {
+        v = "";
+        var Object_TicketStatus = {
+            SerialNumber: serial,
+        }
+        ajaxFunction(TicketStatusUri + ace + '/' + sal + '/' + group + '/', 'Post', Object_TicketStatus,false).done(function (data) {
+            a = self.ErjDocXKList;
+            if (data == "")
+                v = ""
+            else
+                v = data[0].TicketStatusSt;
+        });
+        return v
+
+    }
+
+
     //Get DocAttach List
     function getDocAttachList(serial) {
         var DocAttachObject = {
@@ -119,6 +140,8 @@
             self.DocAttachList(data);
         });
     }
+
+
 
 
 
@@ -345,7 +368,7 @@
                 SerialNumber: 0,
                 DocDate: DateNow,
                 UserCode: username,
-                Status: "",
+                Status: "فعال",
                 Spec: "",
                 LockNo: lockNumber,
                 Text: natijeh,
@@ -580,6 +603,8 @@
 
     $('#AddAttachs').click(function () {
         //e.preventDefault();
+        //$('#AddFiles').val();
+        $('#AddFiles').val('').clone(true);
         $("#AddFiles:hidden").trigger('click');
 
         /*file = 'c:\a\1.png'
@@ -594,6 +619,7 @@
 
 
     this.AddFile = function (data, e) {
+        a = e;
         var dataFile;
         var file = e.target.files[0];
         var name = file.name;
@@ -624,7 +650,7 @@
                     '</tr>'
                 );
 
-
+                e.target.value = ""
                 /*fileFullName = file.files[0].name;
                 fileData = fileFullName.split(".");
                 fileName = fileData[0];
@@ -858,6 +884,8 @@
     }
 
 
+
+
     function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
@@ -880,7 +908,11 @@
             '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
             CreateTableTd('DocNo', 0, 0, 0, data) +
             CreateTableTd('DocDate', 0, 0, 0, data) +
-            CreateTableTd('Status', 0, 0, 0, data) +
+
+            '<td data-bind="text: $root.getTicketStatus(DocNo)"></td>' +
+            
+            
+            //CreateTableTd('Status', 0, 0, 0, data) +
             CreateTableTd('Text', 0, 0, 0, data) +
             CreateTableTd('EghdamName', 0, 0, 0, data) +
             CreateTableTd('TanzimName', 0, 0, 0, data) +
