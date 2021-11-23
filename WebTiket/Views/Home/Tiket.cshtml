@@ -22,9 +22,105 @@
                 </div>
             </div>
             <div class="body">
-                <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
 
+
+                <div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
+                    <table class="table table-hover">
+                        <thead style="cursor: pointer;">
+                            <tr data-bind="click: sortTableErjDocXK">
+                                <th>ردیف</th>
+                                <th data-column="DocNo">
+                                    <span data-column="DocNo">شماره</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'DocNo' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeDocNo }" data-column="DocNo" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="DocDate">
+                                    <span data-column="DocDate">تاریخ</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'DocDate' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeDocDate }" data-column="DocDate" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="Status">
+                                    <span data-column="Status">وضعیت</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Status' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeStatus }" data-column="Status" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="Text">
+                                    <span data-column="Text">توضیحات</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'Text' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeText }" data-column="Text" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="EghdamName">
+                                    <span data-column="EghdamName">اقدام</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'EghdamName' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeEghdamName }" data-column="EghdamName" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="TanzimName">
+                                    <span data-column="TanzimName">تنظیم</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'TanzimName' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeTanzimName }" data-column="Tasviye" class=""></i>
+                                    </span>
+                                </th>
+                                <th data-column="SerialNumber">
+                                    <span data-column="SerialNumber">شماره مبنا</span>
+                                    <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }" class="isHidden">
+                                        <i data-bind="attr: { class: iconTypeSerialNumber }" data-column="SerialNumber" class=""></i>
+                                    </span>
+                                </th>
+
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: currentPageErjDocXK" style="cursor: default;">
+                            <tr>
+                                <td data-bind="text: $root.radif($index())" style="background-color: #d9d9d9;"></td>
+                                <td data-bind="text: DocNo"></td>
+                                <td data-bind="text: DocDate"></td>
+                                <td data-bind="text: Status"></td>
+                                <td data-bind="text: Text"></td>
+                                <td data-bind="text: EghdamName"></td>
+                                <td data-bind="text: TanzimName"></td>
+
+                                <td data-bind="text: SerialNumber"></td>
+                                <td>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(50px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <li>
+                                            <a data-bind="click: $root.ViewDocAttach, visible: DocAttachExists == 1" class="dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false" style="font-size: 11px;text-align: right;">
+                                                <img src="/Content/img/list/attach_file.png" width="16" height="16" style="margin-left:10px" /> پیوست
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #efb68399;">
+                                <td style="background-color: #efb683;"></td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocNo, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_7 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"></td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterDocDate, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_3 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterStatus, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterText, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterEghdamName, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterTanzimName, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="padding: 0px 3px;"><input data-bind="value: filterSerialNumber, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_4 int form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
+                                <td style="background-color: #efb683;"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
+
+
+
+                <!--<div id="TableList" style="height:400px;overflow:auto;border: 1px #ddd solid;" class="table-responsive-md tableFix">
+
+                </div>-->
 
                 <div class="row">
                     <div class="col-md">
@@ -324,7 +420,7 @@
                         <img src="~/Content/img/list/streamline-icon-bin-2@48x48.png" width="20" height="20">
                     </a>
 
-                    <input id="AddFiles" type="file" style="display:none" data-bind="event: {change: $root.AddFile}"/>
+                    <input id="AddFiles" type="file" style="display:none" data-bind="event: {change: $root.AddFile}" />
                     <a id="AddAttachs">
                         <img src="/Content/img/list/streamline-icon-add-circle-alternate@48x48.png" width="20" height="20">
                     </a>
@@ -339,9 +435,7 @@
                                 <th style="text-align: center;">شرح</th>
                             </tr>
                         </thead>
-                        <tbody id="bodyDocAttach" style="cursor: default;">
-                           
-                        </tbody>
+                        <tbody id="bodyDocAttach" style="cursor: default;"></tbody>
                     </table>
                 </div>
             </div>

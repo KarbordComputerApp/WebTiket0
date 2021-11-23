@@ -29,6 +29,10 @@ namespace WebTiket.Controllers
             return View();
         }
 
+        public ActionResult CustAccount()
+        {
+            return View();
+        }
 
 
     }

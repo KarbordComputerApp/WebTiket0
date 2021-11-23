@@ -5,11 +5,17 @@
 var AccountUri = serverAccount + 'Account/'; // آدرس حساب
 var username = 'ace';
 
-var server = localStorage.getItem('ApiAddress');
-var ace = "Web2";
-var sal = "0000";
-var group = localStorage.getItem('group');
+var serverTiket = localStorage.getItem('ApiAddressTiket');
+var aceTiket = "Web2";
+var salTiket = "0000";
+var groupTiket = localStorage.getItem('groupTiket');
 var lockNumber = localStorage.getItem('lockNumber');
+
+var serverCustAccount = localStorage.getItem('ApiAddressCustAccount');
+var aceCustAccount = "Web8";
+var salCustAccount = "0000";
+var groupCustAccount = localStorage.getItem('groupCustAccount');
+
 
 var colorRadif = '#d9d9d9';
 
@@ -18,21 +24,19 @@ var DateNow;
 var SalNow;
 
 
-var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
-var RprtColsSaveUri = server + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
+var RprtColsSaveUri = serverTiket + '/api/Web_Data/RprtColsSave/'; // آدرس ذخیره ستون ها 
 
 
 
-function getAccountData(lock) {
-
+function getAccountDataTiket(lock) {
     ajaxFunctionAccount(AccountUri + 'tiket' + '/' + 'tiket', 'GET').done(function (data) {
         if (data === 0) {
-            return showNotification(' اطلاعات قفل یافت نشد ', 0);
+            return showNotification(' اطلاعات تیکت یافت نشد ', 0);
         }
         else {
             serverAddress = data.AddressApi;
-            localStorage.setItem("group", data.ERJ_Group);
-            localStorage.setItem("ApiAddress", serverAddress);
+            localStorage.setItem("groupTiket", data.ERJ_Group);
+            localStorage.setItem("ApiAddressTiket", serverAddress);
 
             ajaxFunctionAccount(AccountUri + lock, 'GET').done(function (data) {
                 if (data === 0) {
@@ -42,6 +46,7 @@ function getAccountData(lock) {
                     return showNotification(' اطلاعات قفل یافت نشد ', 0);
                 }
                 else {
+                    //lock = 10071; // بعد از تست حذف شود
                     lockNumber = lock;
                     $("#Tiket_Menu").show();
                     localStorage.setItem("lockNumber", lock);
@@ -49,10 +54,20 @@ function getAccountData(lock) {
             });
         }
     });
+}
 
-
-
-
+function getAccountDataCustAccount(lock) {
+    ajaxFunctionAccount(AccountUri + 'linkpardakht' + '/' + 'linkpardakht', 'GET').done(function (data) {
+        if (data === 0) {
+            return showNotification(' اطلاعات لینک پرداخت یافت نشد ', 0);
+        }
+        else {
+            serverAddress = data.AddressApi;
+            localStorage.setItem("groupCustAccount", data.AFI8_Group);
+            //localStorage.setItem("groupCustAccount", "06");
+            localStorage.setItem("ApiAddressCustAccount", serverAddress);
+        }
+    });
 }
 
 url = window.location.href;
@@ -63,8 +78,9 @@ lock = url.split('?')[1];
 
 
 if (lock != null) {
-    lock = Math.round(lock / 114820000008); 
-    getAccountData(lock);
+    lock = Math.round(lock / 114820000008);
+    getAccountDataTiket(lock);
+    getAccountDataCustAccount(lock);
 }
 
 
@@ -316,10 +332,10 @@ function FindTypeField(field, data) {
 
 
 
-function getDateServer() {
+function getDateServer(server) {
     var date;
     if (server != null) {
-
+        var DateUri = server + '/api/Web_Data/Date/'; // آدرس  تاریخ سرور
         ajaxFunction(DateUri, 'GET').done(function (data) {
             listDate = data[0].split("/");
             DateNow = data[0];
@@ -622,3 +638,155 @@ function saveByteArray(reportName, byte) {
     link.download = fileName;
     link.click();
 };
+
+
+
+
+var viewer = null;
+var designer = null;
+var options = null;
+var report = null;
+var dataSet = null;
+
+function createViewer() {
+    Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("/Content/Report/Lang/fa.xml", true, "persion (fa)");
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZiba.ttf", "Karbord_Ziba");
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BZAR.ttf", "Karbord_ZAR");
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BYEKAN.ttf", "Karbord_YEKAN");
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BTITRBD.ttf", "Karbord_TITRBD");
+    Stimulsoft.Base.StiFontCollection.addOpentypeFontFile("/Content/fonts/BNAZANIN.ttf", "Karbord_NAZANIN");
+
+    options = new Stimulsoft.Viewer.StiViewerOptions();
+    viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+
+    options.appearance.showSystemFonts = false;
+    options.height = "100%";
+    options.appearance.fullScreenMode = true;
+    options.appearance.scrollbarsMode = true;
+    options.toolbar.showSaveButton = true;
+
+    if (lockNumber == 10011) {
+        options.toolbar.showDesignButton = true;
+        $('#DesignPrint').attr('style', 'display: unset');
+    } else {
+        options.toolbar.showDesignButton = false;
+        $('#DesignPrint').attr('style', 'display: none');
+    }
+
+
+    options.toolbar.showFullScreenButton = false;
+    options.toolbar.printDestination = Stimulsoft.Viewer.StiPrintDestination.Direct;
+    options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+    options.toolbar.zoom = 100;
+    options.toolbar.showCloseButton = true;
+
+    report = new Stimulsoft.Report.StiReport();
+    viewer.onDesignReport = function (e) {
+        createDesigner();
+    };
+    viewer.renderHtml("viewerContent");
+
+    var userButton = viewer.jsObject.SmallButton("userButton", "خروج");
+
+    userButton.action = function () {
+        $("#modal-Report").modal('hide');
+    }
+
+    var toolbarTable = viewer.jsObject.controls.toolbar.firstChild.firstChild;
+    var buttonsTable = toolbarTable.rows[0].firstChild.firstChild;
+    var userButtonCell = buttonsTable.rows[0].insertCell(0);
+    userButtonCell.className = "stiJsViewerClearAllStyles";
+    userButtonCell.appendChild(userButton);
+}
+
+var DataReport;
+function createDesigner() {
+    viewer.visible = false;
+    designer = null;
+    var options = new Stimulsoft.Designer.StiDesignerOptions();
+    options.appearance.fullScreenMode = true;
+    options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+
+    designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+    designer.renderHtml("designerContent");
+
+    designer.onExit = function (e) {
+        this.visible = false;
+        viewer.visible = false;
+        $("#modal-Report").modal('hide');
+    }
+
+    designer.onSaveReport = function (e) {
+        var jsonStr = e.report.saveToJsonString();
+        SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
+    }
+
+    designer.onSaveAsReport = function (e) {
+        var jsonStr = e.report.saveToJsonString();
+        var name = e.fileName;
+        resTestSavePrintForm = "";
+        //SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
+    };
+
+    report._reportFile = printName == null ? 'فرم چاپ' : printName;
+    designer.report = report;
+    designer.visible = true;
+
+}
+
+
+
+
+function setReport(reportObject, addressMrt, variablesObject) {
+    DataReport = reportObject;
+    if (DataReport.length == 0 || DataReport == null || DataReport == "") {
+        return showNotification('ابتدا گزارش گیری کنید', 0);
+    }
+
+    var dStart = new Date();
+    var secondsStart = dStart.getTime();
+    dateDifference = DateNow + secondsStart; // عدد یونیک
+
+    addressMrt = '/Content/Report/' + addressMrt + '.mrt?dt=' + dateDifference;
+
+    report = new Stimulsoft.Report.StiReport();
+    report.loadFile(addressMrt);
+
+    report.dictionary.databases.clear();
+    dataSet = new Stimulsoft.System.Data.DataSet("Database");
+    DataReport = '{"Data":' + JSON.stringify(DataReport) + '}';
+
+    dataSet.readJson(DataReport);
+    report.regData(dataSet.dataSetName, "", dataSet);
+
+    variablesDataSet = new Stimulsoft.System.Data.DataSet("variables");
+    variablesReport = '{"variables":[{' + variablesObject + '}]}';
+    variablesDataSet.readJson(variablesReport);
+    report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
+
+
+    titlesObject = '';
+    for (var i = 0; i < ListColumns.length; i++) {
+        titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
+    }
+
+
+    titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+    titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+    titlesDataSet.readJson(titlesReport);
+    report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+
+
+    report.dictionary.synchronize();
+
+    viewer.report = report;
+    //report.render();
+
+    viewer.visible = true;
+    $('#modal-Report').modal('show');
+
+    viewer.onExit = function (e) {
+        this.visible = false;
+    }
+
+}

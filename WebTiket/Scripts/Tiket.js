@@ -3,16 +3,16 @@
 
     self.ErjDocXKList = ko.observableArray([]); // لیست گزارش  
 
-    var ErjDocXKUri = server + '/api/Web_Data/Web_ErjDocXK/'; // آدرس تیکت ها  
-    var TicketStatusUri = server + '/api/Web_Data/Web_TicketStatus/'; // آدرس وضعیت تیکت ها 
+    var ErjDocXKUri = serverTiket + '/api/Web_Data/Web_ErjDocXK/'; // آدرس تیکت ها  
+    var TicketStatusUri = serverTiket + '/api/Web_Data/Web_TicketStatus/'; // آدرس وضعیت تیکت ها 
 
-    var RprtColsUri = server + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
-    var DocAttachUri = server + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
-    var DownloadAttachUri = server + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
-    var ErjSaveTicketUri = server + '/api/Web_Data/ErjSaveTicket_HI/'; // آدرس  دانلود پیوست 
+    var RprtColsUri = serverTiket + '/api/Web_Data/RprtCols/'; // آدرس مشخصات ستون ها 
+    var DocAttachUri = serverTiket + '/api/Web_Data/DocAttach/'; // آدرس لیست پیوست 
+    var DownloadAttachUri = serverTiket + '/api/Web_Data/DownloadAttach/'; // آدرس  دانلود پیوست 
+    var ErjSaveTicketUri = serverTiket + '/api/Web_Data/ErjSaveTicket_HI/'; // آدرس  دانلود پیوست 
 
-    var ErjDocAttach_SaveUri = server + '/api/FileUpload/UploadFile/'; // ذخیره پیوست
-    var ErjDocAttach_DelUri = server + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
+    var ErjDocAttach_SaveUri = serverTiket + '/api/FileUpload/UploadFile/'; // ذخیره پیوست
+    var ErjDocAttach_DelUri = serverTiket + '/api/Web_Data/ErjDocAttach_Del/'; // حذف پیوست
 
     var serialNumberAttach = 0;
     var serialNumber = 0;
@@ -22,9 +22,9 @@
     var counterAttach = 0
     var fileList = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
 
-    getDateServer();
+    getDateServer(serverTiket);
 
-    var rprtId = 'ErjDocXK';
+/*     var rprtId = 'ErjDocXK';
     var columns = [
         'DocNo',
         'DocDate',
@@ -36,9 +36,9 @@
     ];
 
 
-    //Get RprtCols List
-    function getRprtColsList(FlagSetting, username) {
-        ajaxFunction(RprtColsUri + ace + '/' + sal + '/' + group + '/' + rprtId + '/' + username, 'GET').done(function (data) {
+ //Get RprtCols List
+   function getRprtColsList(FlagSetting, username) {
+        ajaxFunction(RprtColsUri + aceTiket + '/' + salTiket + '/' + groupTiket + '/' + rprtId + '/' + username, 'GET').done(function (data) {
             self.SettingColumnList(data);
             ListColumns = data;
             if (FlagSetting) {
@@ -56,7 +56,7 @@
 
     //Get RprtColsDefult List
     function getRprtColsDefultList() {
-        ajaxFunction(RprtColsDefultUri + ace + '/' + sal + '/' + group + '/' + rprtId, 'GET').done(function (data) {
+        ajaxFunction(RprtColsDefultUri + aceTiket + '/' + salTiket + '/' + groupTiket + '/' + rprtId, 'GET').done(function (data) {
             self.SettingColumnList(data);
             counterColumn = 0;
             for (var i = 1; i <= columns.length; i++) {
@@ -67,7 +67,7 @@
 
 
     $('#SaveColumns').click(function () {
-        SaveColumn(ace, sal, group, rprtId, "/Home/", columns, self.SettingColumnList());
+        SaveColumn(aceTiket, salTiket, groupTiket, rprtId, "/Home/", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
     });
 
@@ -86,14 +86,14 @@
     $('#DefultColumn').click(function () {
         $('#AllSettingColumns').prop('checked', false);
         getRprtColsDefultList();
-        SaveColumn(ace, sal, group, rprtId, "/ERJ/index", columns, self.SettingColumnList());
+        SaveColumn(aceTiket, salTiket, groupTiket, rprtId, "/ERJ/index", columns, self.SettingColumnList());
         sessionStorage.setItem('listFilter', null);
 
     });
 
 
 
-    getRprtColsList(true, username);
+    getRprtColsList(true, username);*/
 
 
     //Get ErjDocXK 
@@ -102,13 +102,13 @@
             LockNo: lockNumber,
             ModeCode: '204',
         }
-        ajaxFunction(ErjDocXKUri + ace + '/' + sal + '/' + group + '/', 'Post', ErjDocXKObject).done(function (dataDocXK) {
+        ajaxFunction(ErjDocXKUri + aceTiket + '/' + salTiket + '/' + groupTiket + '/', 'Post', ErjDocXKObject).done(function (dataDocXK) {
             
 
             var Object_TicketStatus = {
                 SerialNumber: ''
             }
-            ajaxFunction(TicketStatusUri + ace + '/' + sal + '/' + group + '/', 'Post', Object_TicketStatus, false).done(function (dataTicketStatus) {
+            ajaxFunction(TicketStatusUri + aceTiket + '/' + salTiket + '/' + groupTiket + '/', 'Post', Object_TicketStatus, false).done(function (dataTicketStatus) {
 
                 for (var i = 0; i < dataDocXK.length; i++) {
 
@@ -152,7 +152,7 @@
             ModeCode: 102,
             SerialNumber: serial
         }
-        ajaxFunction(DocAttachUri + ace + '/' + sal + '/' + group, 'POST', DocAttachObject).done(function (data) {
+        ajaxFunction(DocAttachUri + aceTiket + '/' + salTiket + '/' + groupTiket, 'POST', DocAttachObject).done(function (data) {
             self.DocAttachList(data);
         });
     }
@@ -288,8 +288,8 @@
         if (e != null)
             var orderProp = $(e.target).attr("data-column")
         else {
-            orderProp = localStorage.getItem("sort" + rprtId);
-            self.sortType = localStorage.getItem("sortType" + rprtId);
+            orderProp = localStorage.getItem("sortTiket");
+            self.sortType = localStorage.getItem("sortTypeTiket");
         }
 
         if (orderProp == null)
@@ -310,8 +310,8 @@
 
             self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
 
-            localStorage.setItem("sort" + rprtId, orderProp);
-            localStorage.setItem("sortType" + rprtId, self.sortType);
+            localStorage.setItem("sortTiket" , orderProp);
+            localStorage.setItem("sortTypeTiket", self.sortType);
         }
 
 
@@ -410,7 +410,7 @@
                 F20: '',
                 Motaghazi: motaghazi,
             }
-            ajaxFunction(ErjSaveTicketUri + ace + '/' + sal + '/' + group + '/', 'POST', ErjSaveTicket_HI).done(function (data) {
+            ajaxFunction(ErjSaveTicketUri + aceTiket + '/' + salTiket + '/' + groupTiket + '/', 'POST', ErjSaveTicket_HI).done(function (data) {
                 serialNumber = data;
 
                 /* var zip = new JSZip();
@@ -475,7 +475,7 @@
             formData.append("FName", fileFullName);
             formData.append("Atch", file);
 
-            ajaxFunctionUpload(ErjDocAttach_SaveUri + ace + '/' + sal + '/' + group, formData, false).done(function (response) {
+            ajaxFunctionUpload(ErjDocAttach_SaveUri + aceTiket + '/' + salTiket + '/' + groupTiket, formData, false).done(function (response) {
 
             })
         });
@@ -667,39 +667,7 @@
                 );
 
                 e.target.value = ""
-                /*fileFullName = file.files[0].name;
-                fileData = fileFullName.split(".");
-                fileName = fileData[0];
-                fileType = '.' + fileData[1];
-     
-                var zip = new JSZip();
-     
-     
-                zip.file('temp' + fileType, file.files[0]);
-                zip.generateAsync({ type: "Blob", compression: "DEFLATE" }).then(function (content) {
-     
-                    var file = new File([content], fileFullName, { type: "zip" });
-     
-                    //file = $("#upload")[0].files[0];
-     
-     
-                    attachDate = DateNow;
-     
-                    var formData = new FormData();
-     
-                    formData.append("SerialNumber", serialNumber);
-                    formData.append("ProgName", "ERJ1");
-                    formData.append("ModeCode", 1);
-                    formData.append("BandNo", 0);
-                    formData.append("Code", "");
-                    formData.append("Comm", "مدرک پیوست - " + attachDate + " - " + sessionStorage.userNameFa + " - " + fileName);
-                    formData.append("FName", fileFullName);
-                    formData.append("Atch", file);
-     
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceErj + '/' + salErj + '/' + group, formData, true).done(function (response) {
-                        getDocAttachList(serialNumber);
-                    })
-                });*/
+               
             }
         })
     }
@@ -722,7 +690,7 @@
             BandNo: item.BandNo
         }
 
-        ajaxFunction(DownloadAttachUri + ace + '/' + sal + '/' + group, 'POST', DownloadAttachObject, true).done(function (data) {
+        ajaxFunction(DownloadAttachUri + aceTiket + '/' + salTiket + '/' + groupTiket, 'POST', DownloadAttachObject, true).done(function (data) {
             var sampleArr = base64ToArrayBuffer(data);
             saveByteArray(fileName[0] + ".zip", sampleArr);
         });
@@ -749,7 +717,7 @@
                     BandNo: Band.BandNo,
                 };
 
-                ajaxFunction(ErjDocAttach_DelUri + ace + '/' + sal + '/' + group, 'POST', Web_DocAttach_Save).done(function (response) {
+                ajaxFunction(ErjDocAttach_DelUri + aceTiket + '/' + salTiket + '/' + groupTiket, 'POST', Web_DocAttach_Save).done(function (response) {
                     getDocAttachList(serialNumber);
                     showNotification('پیوست حذف شد', 1);
                 });
@@ -808,7 +776,7 @@
                     formData.append("FName", fileFullName);
                     formData.append("Atch", file);
 
-                    ajaxFunctionUpload(ErjDocAttach_SaveUri + ace + '/' + sal + '/' + group, formData, true).done(function (response) {
+                    ajaxFunctionUpload(ErjDocAttach_SaveUri + aceTiket + '/' + salTiket + '/' + groupTiket, formData, true).done(function (response) {
                         getDocAttachList(serialNumber);
                     })
                 });
@@ -827,7 +795,7 @@
             ModeCode: '',
             BandNo: bandNoImput
         };
-        ajaxFunction(ErjDocAttach_DelUri + ace + '/' + sal + '/' + group, 'POST', Web_DocAttach_Del).done(function (response) {
+        ajaxFunction(ErjDocAttach_DelUri + aceTiket + '/' + salTiket + '/' + groupTiket, 'POST', Web_DocAttach_Del).done(function (response) {
         });
     };
 
@@ -902,7 +870,7 @@
 
 
 
-    function CreateTableReport(data) {
+    /*function CreateTableReport(data) {
         $("#TableList").empty();
         $('#TableList').append(
             ' <table class="table table-hover">' +
@@ -980,7 +948,7 @@
 
         color = "\'" + color + "\'";
         daryaft = "\'" + "دریافت شد" + "\'"
-        payan = "\'" + "پایان یافته" + "\'"
+        payan = "\'" + "پايان يافته" + "\'"
         karshenas = "\'" + "در دست کارشناس" + "\'"
         bateh = "\'" + "باطل" + "\'"
 
@@ -1007,7 +975,7 @@
         text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
         text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
         return text;
-    }
+    }*/
 
 
     self.SearchKeyDown = function (viewModel, e) {

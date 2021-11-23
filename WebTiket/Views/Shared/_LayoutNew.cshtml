@@ -14,6 +14,8 @@
     <link href="~/Content/css/all-themes.css" rel="stylesheet" />
     <link href="~/Content/js/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
     <link href="~/Content/css/site.css?dt=@(WebTiket.Controllers.Unit.UnitPublic.titleVerNumber)" rel="stylesheet" />
+    <link href="~/Content/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet" />
+    <link href="~/Content/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet" />
 
 </head>
 <!--<body class="light rtlSite" ondragstart="return false;" ondrop="return false;" onpaste="return false"> -->
@@ -233,11 +235,14 @@
                         <i>
                             <img src="~/Content/img/SanadAnbarWhite.png" width="20" />
                         </i>
-                        <span>تیکت پشتیبانی</span>
+                        <span>پشتیبانی</span>
                     </a>
                     <ul class="ml-menu">
                         <li id="TiketList" class="rightClick">
                             <a class="useBlank" href=@Url.Action("Tiket","Home")>تیکت پشتیبانی</a>
+                        </li>
+                        <li id="CustAccount" class="rightClick">
+                            <a class="useBlank" href=@Url.Action("CustAccount","Home")>حساب</a>
                         </li>
                     </ul>
                 </li>
@@ -505,6 +510,9 @@
     <script src="~/Content/js/sweet2.js"></script>
     <script src="~/Content/js/jalaali.js"></script>
     <script src="~/Scripts/app.js?dt=@(WebTiket.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
+    <script src="~/Content/js/stimulsoft.reports.js"></script>
+    <script src="~/Content/js/stimulsoft.viewer.js"></script>
+    <script src="~/Content/js/stimulsoft.designer.js"></script>
     <script src="~/Content/js/num2persian-min.js?dt=@(WebTiket.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Scripts/PublicAFI.js?dt=@(WebTiket.Controllers.Unit.UnitPublic.titleVerNumber)"></script>
     <script src="~/Content/js/jquery.md.bootstrap.datetimepicker.js"></script>
