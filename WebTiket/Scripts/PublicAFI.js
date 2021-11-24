@@ -716,9 +716,9 @@ function createDesigner() {
         $("#modal-Report").modal('hide');
     }
 
-    designer.onSaveReport = function (e) {
+    /*designer.onSaveReport = function (e) {
         var jsonStr = e.report.saveToJsonString();
-        SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
+       // SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
     }
 
     designer.onSaveAsReport = function (e) {
@@ -726,9 +726,9 @@ function createDesigner() {
         var name = e.fileName;
         resTestSavePrintForm = "";
         //SavePrintForm(sessionStorage.ModePrint, e.fileName, jsonStr);
-    };
+    };*/
 
-    report._reportFile = printName == null ? 'فرم چاپ' : printName;
+    //report._reportFile = printName == null ? 'فرم چاپ' : printName;
     designer.report = report;
     designer.visible = true;
 
@@ -745,9 +745,6 @@ function setReport(reportObject, addressMrt, variablesObject) {
 
     var dStart = new Date();
     var secondsStart = dStart.getTime();
-    dateDifference = DateNow + secondsStart; // عدد یونیک
-
-    addressMrt = '/Content/Report/' + addressMrt + '.mrt?dt=' + dateDifference;
 
     report = new Stimulsoft.Report.StiReport();
     report.loadFile(addressMrt);
@@ -765,16 +762,12 @@ function setReport(reportObject, addressMrt, variablesObject) {
     report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
 
 
-    titlesObject = '';
-    for (var i = 0; i < ListColumns.length; i++) {
-        titlesObject += '"' + ListColumns[i].Code + '":"' + ListColumns[i].Name + '",';
-    }
+    
 
-
-    titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
-    titlesReport = '{"Titles":[{' + titlesObject + '}]}';
-    titlesDataSet.readJson(titlesReport);
-    report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+   // titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+   // titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+   // titlesDataSet.readJson(titlesReport);
+   // report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
 
 
     report.dictionary.synchronize();

@@ -2,12 +2,17 @@
     var self = this;
 
     self.CustAccountList = ko.observableArray([]); // لیست گزارش  
+    self.FDocP_CustAcountList = ko.observableArray([]); // لیست چاپ  
 
     var CustAccountUri = serverCustAccount + '/api/Web_Data/CustAccount/'; // آدرس فاکتور ها  
-    var PayUri = serverCustAccount + '/api/Shaparak/PostSalePayment'; // آدرس پرداخت  
+    var FDocP_CustAcountUri = serverCustAccount + '/api/Web_Data/FDocP_CustAcount/'; // آدرس چاپ فاکتور   
+    var SalePaymentUri = serverCustAccount + '/api/Shaparak/SalePayment'; // آدرس پرداخت  
+    var PaymentConfirmUri = serverCustAccount + '/api/Shaparak/PaymentConfirm'; // آدرس تایید پرداخت  
     var CustAccountSaveUri = serverCustAccount + "/api/Web_Data/CustAccountSave/"; // آدرس ذخیره لینک پرداخت  
 
     var serialNumber = 0;
+
+    var loginAccount = "NRlhOcngQl7BwNOhU104";
 
     getDateServer();
 
@@ -26,6 +31,20 @@
             self.CustAccountList(data)
         });
     }
+
+
+
+
+    function getFDocP_CustAcount(year, serial) {
+        var FDocP_CustAcountObject = {
+            Year: year,
+            SerialNumber: serial
+        }
+        ajaxFunction(FDocP_CustAcountUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount + '/', 'Post', FDocP_CustAcountObject, false).done(function (data) {
+            self.FDocP_CustAcountList(data)
+        });
+    }
+
 
     getCustAccount();
 
@@ -72,7 +91,6 @@
     self.filterSpec = ko.observable("");
     self.filterTotalValue = ko.observable("");
     self.filterTasviye = ko.observable("");
-    self.filterSerialNumber = ko.observable("");
 
     self.filterCustAccountList = ko.computed(function () {
         self.currentPageIndexCustAccount(0);
@@ -81,7 +99,7 @@
         var filterSpec = self.filterSpec().toUpperCase();
         var filterTotalValue = self.filterTotalValue().toUpperCase();
         var filterTasviye = self.filterTasviye().toUpperCase();
-        var filterSerialNumber = self.filterSerialNumber().toUpperCase();
+
 
         var a = self.CustAccountList()
         tempData = ko.utils.arrayFilter(self.CustAccountList(), function (item) {
@@ -90,8 +108,7 @@
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
                 (item.Spec == null ? '' : item.Spec.toString().search(filterSpec) >= 0) &&
                 ko.utils.stringStartsWith(item.TotalValue.toString().toLowerCase(), filterTotalValue) &&
-                (item.Tasviye == null ? '' : item.Tasviye.toString().search(filterTasviye) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber)
+                (item.Tasviye == null ? '' : item.Tasviye.toString().search(filterTasviye) >= 0)
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -138,7 +155,6 @@
     self.iconTypeSpec = ko.observable("");
     self.iconTypeTotalValue = ko.observable("");
     self.iconTypeTasviye = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
 
     self.sortTableCustAccount = function (viewModel, e) {
 
@@ -177,14 +193,12 @@
         self.iconTypeSpec('');
         self.iconTypeTotalValue('');
         self.iconTypeTasviye('');
-        self.iconTypeSerialNumber('');
 
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Spec') self.iconTypeSpec((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'TotalValue') self.iconTypeTotalValue((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Tasviye') self.iconTypeTasviye((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -195,8 +209,10 @@
         return index + calc;
     }
 
+
+
     self.ShowLinkPardakht = function (list) {
-        loginAccount = "NRlhOcngQl7BwNOhU104";
+        //callBackUrl = "https://www.karbordcomputer.ir/";
         callBackUrl = "https://www.karbordcomputer.ir/";
 
         var SalePaymentRequestObject = {
@@ -207,13 +223,11 @@
             'OrderId': list.SerialNumber,
             'Originator': '',
         }
-        ajaxFunction(PayUri, 'Post', SalePaymentRequestObject).done(function (dataLink) {
+        ajaxFunction(SalePaymentUri, 'Post', SalePaymentRequestObject).done(function (dataLink) {
 
             if (dataLink.Status == 0) {
                 token = dataLink.Token;
                 uriPay = dataLink.location;
-
-                window.open(uriPay, '_blank');
 
                 var CustAccountSaveObject = {
                     'Year': list.DocDate.substring(0, 4),
@@ -224,35 +238,44 @@
                     getCustAccount();
                     self.sortTableCustAccount();
                 });
+
+                window.open(uriPay, '_blank');
+                ConfirmPayment(token);
             }
             else {
-                return showNotification(dataLink.Message,0)
+                return showNotification(dataLink.Message, 0)
             }
         });
 
     }
 
-    //createViewer();
 
-    self.ShowLinkPardakht = function (list) {
 
-        setReport(self.FDocPList(), data, printVariable);
+
+    function ConfirmPayment(token) {
+        var PaymentConfirmRequest = {
+            'LoginAccount': loginAccount,
+            'Token': token
+        }
+        ajaxFunction(PaymentConfirmUri, 'Post', PaymentConfirmRequest, false).done(function (data) {
+            if (data.status == 0) {
+                return showNotification("پرداخت با موفقیت انجام شد" + data.status, 1);
+            }
+            else {
+                return showNotification("پرداخت انجام نشد" + " کد خطا: " + data.status, 0);
+            }
+
+        });
+    }
+
+
+    createViewer();
+
+    self.ChapFactor = function (list) {
+        printVariable = '"ReportDate":"' + DateNow + '",';
+        getFDocP_CustAcount(list.DocDate.substring(0, 4), list.SerialNumber);
+        setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json', printVariable);
     };
-
-
-
-
-
-
-
-        
-   
-
-
-
-    
-
-
 
     self.sortTableCustAccount();
 };

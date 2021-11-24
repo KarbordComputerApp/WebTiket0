@@ -208,9 +208,7 @@
     self.filterDocDate = ko.observable("");
     self.filterStatus = ko.observable("");
     self.filterText = ko.observable("");
-    self.filterEghdamName = ko.observable("");
-    self.filterTanzimName = ko.observable("");
-    self.filterSerialNumber = ko.observable("");
+    self.filterMotaghazi = ko.observable("");
 
 
     self.filterErjDocXKList = ko.computed(function () {
@@ -219,9 +217,7 @@
         var filterDocDate = self.filterDocDate().toUpperCase();
         var filterStatus = self.filterStatus().toUpperCase();
         var filterText = self.filterText().toUpperCase();
-        var filterEghdamName = self.filterEghdamName().toUpperCase();
-        var filterTanzimName = self.filterTanzimName().toUpperCase();
-        var filterSerialNumber = self.filterSerialNumber().toUpperCase();
+        var filterMotaghazi = self.filterMotaghazi().toUpperCase();
 
         tempData = ko.utils.arrayFilter(self.ErjDocXKList(), function (item) {
             result =
@@ -229,9 +225,7 @@
                 (item.DocDate == null ? '' : item.DocDate.toString().search(filterDocDate) >= 0) &&
                 (item.Status == null ? '' : item.Status.toString().search(filterStatus) >= 0) &&
                 (item.Text == null ? '' : item.Text.toString().search(filterText) >= 0) &&
-                (item.EghdamName == null ? '' : item.EghdamName.toString().search(filterEghdamName) >= 0) &&
-                (item.TanzimName == null ? '' : item.TanzimName.toString().search(filterTanzimName) >= 0) &&
-                ko.utils.stringStartsWith(item.SerialNumber.toString().toLowerCase(), filterSerialNumber)
+                (item.Motaghazi == null ? '' : item.Motaghazi.toString().search(filterMotaghazi) >= 0)
             return result;
         })
         $("#CountRecord").text(tempData.length);
@@ -279,9 +273,7 @@
     self.iconTypeDocDate = ko.observable("");
     self.iconTypeStatus = ko.observable("");
     self.iconTypeText = ko.observable("");
-    self.iconTypeEghdamName = ko.observable("");
-    self.iconTypeTanzimName = ko.observable("");
-    self.iconTypeSerialNumber = ko.observable("");
+    self.iconTypeMotaghazi = ko.observable("");
 
     self.sortTableErjDocXK = function (viewModel, e) {
 
@@ -319,18 +311,13 @@
         self.iconTypeDocDate('');
         self.iconTypeStatus('');
         self.iconTypeText('');
-        self.iconTypeEghdamName('');
-        self.iconTypeTanzimName('');
-        self.iconTypeSerialNumber('');
+        self.iconTypeMotaghazi('');
 
         if (orderProp == 'DocNo') self.iconTypeDocNo((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'DocDate') self.iconTypeDocDate((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-
         if (orderProp == 'Status') self.iconTypeStatus((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
         if (orderProp == 'Text') self.iconTypeText((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'EghdamName') self.iconTypeEghdamName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'TanzimName') self.iconTypeTanzimName((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
-        if (orderProp == 'SerialNumber') self.iconTypeSerialNumber((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
+        if (orderProp == 'Motaghazi') self.iconTypeMotaghazi((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 
 
@@ -867,115 +854,6 @@
         return index + calc;
     }
 
-
-
-
-    /*function CreateTableReport(data) {
-        $("#TableList").empty();
-        $('#TableList').append(
-            ' <table class="table table-hover">' +
-            '   <thead style="cursor: pointer;">' +
-            '       <tr data-bind="click: sortTableErjDocXK">' +
-            '<th>ردیف</th>' +
-            CreateTableTh('DocNo', data) +
-            CreateTableTh('DocDate', data) +
-            CreateTableTh('Status', data) +
-            CreateTableTh('Text', data) +
-            CreateTableTh('EghdamName', data) +
-            CreateTableTh('TanzimName', data) +
-            CreateTableTh('SerialNumber', data) +
-            '<th>عملیات</th>' +
-            '      </tr>' +
-            '   </thead >' +
-            '<tbody data-bind="foreach: currentPageErjDocXK" data-dismiss="modal" style="cursor: default;">' +
-            '    <tr>' +
-            '<td data-bind="text: $root.radif($index())" style="background-color: ' + colorRadif + ';"></td>' +
-            CreateTableTd('DocNo', 0, 0, 0, data) +
-            CreateTableTd('DocDate', 0, 0, 0, data) +
-            CreateTableTd('Status', 0, 1, 0, data) +
-            //'<td data-bind="text: $root.getTicketStatus(DocNo)"></td>' +
-            CreateTableTd('Text', 0, 0, 0, data) +
-            CreateTableTd('EghdamName', 0, 0, 0, data) +
-            CreateTableTd('TanzimName', 0, 0, 0, data) +
-            CreateTableTd('SerialNumber', 0, 0, 0, data) +
-            '<td>' +
-            '      <a data-bind="click: $root.ViewDocAttach, visible: DocAttachExists == 1" class= "dropdown-toggle" data-toggle="modal" data-target="#modal-DocAttach" data-backdrop="static" data-keyboard="false" style="font-size: 11px;text-align: right;">' +
-            '          <img src="/Content/img/list/attach_file.png" width="18" height="18"/> ' +
-            '      </a>' +
-            '</td >' +
-            '        </tr>' +
-            '</tbody>' +
-            ' <tfoot>' +
-            '  <tr style="background-color: #efb68399;">' +
-            '<td style="background-color: #efb683;"></td>' +
-            CreateTableTdSearch('DocNo', data) +
-            CreateTableTdSearch('DocDate', data) +
-            CreateTableTdSearch('Status', data) +
-            CreateTableTdSearch('Text', data) +
-            CreateTableTdSearch('EghdamName', data) +
-            CreateTableTdSearch('TanzimName', data) +
-            CreateTableTdSearch('SerialNumber', data) +
-            '<td style="background-color: #efb683;"></td>' +
-            '      </tr>' +
-            '  </tfoot>' +
-            '</table >'
-        );
-    }
-
-    function CreateTableTh(field, data) {
-
-        text = '<th ';
-
-        TextField = FindTextField(field, data);
-        sortField = field == 'DocNo' ? 'DocNo' : field
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'data-column="' + sortField + '">' +
-            '<span data-column="' + sortField + '">' + TextField + '</span>' +
-            '<span data-bind="attr: { class: currentColumn() == \'' + sortField + '\' ? \'isVisible\' : \'isHidden\' }">' +
-            '    <i data-bind="attr: { class: iconType' + field + ' }"  data-column="' + sortField + '" ></i> </span> ' +
-            '</th>';
-        return text;
-    }
-
-    function CreateTableTd(field, Deghat, no, color, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        color = "\'" + color + "\'";
-        daryaft = "\'" + "دریافت شد" + "\'"
-        payan = "\'" + "پايان يافته" + "\'"
-        karshenas = "\'" + "در دست کارشناس" + "\'"
-        bateh = "\'" + "باطل" + "\'"
-
-        switch (no) {
-            case 0:
-                text += 'data-bind="text: ' + field + ' , style: {\'background-color\': ' + color + ' != \'0\' ? ' + color + ' : null  }"></td>';
-                break;
-            case 1:
-                text += 'style="direction: ltr;" data-bind="text: ' + field + ', style: { color: ' + field + ' == ' + payan + ' ? \'green\' : ' + field + ' == ' + karshenas + ' ? \'blue\' : ' + field + ' == ' + bateh +' ? \'red\' : \'black\' }"></td>'
-                break;
-
-        }
-        return text;
-    }
-
-    function CreateTableTdSearch(field, data) {
-        text = '<td ';
-
-        TextField = FindTextField(field, data);
-        type = FindTypeField(field, data);
-        if (TextField == 0)
-            text += 'Hidden ';
-
-        text += 'style="padding: 0px 3px;"><input data-bind="value: filter' + field + ', valueUpdate: \'afterkeydown\', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_' + type;
-        text += ' form-control" style="height: 2.4rem;direction: ltr;text-align: right;" /> </td>';
-        return text;
-    }*/
 
 
     self.SearchKeyDown = function (viewModel, e) {

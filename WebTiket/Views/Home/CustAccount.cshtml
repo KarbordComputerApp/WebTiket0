@@ -9,7 +9,7 @@
         <div class="card">
             <div class="header">
                 <div class="form-inline focused">
-                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست حساب</strong>
+                    <strong style="margin-left: 5px; margin-right: 5px;font-size: 15px;">لیست فاکتور ها</strong>
                     <div class="row header-dropdown m-r--5">
                         <a id="refreshCustAccount" class="">
                             <img src="~/Content/img/list/streamline-icon-synchronize-arrows-1@48x48.png" width="20" height="20" style="margin-left: 10px;" />
@@ -53,12 +53,6 @@
                                         <i data-bind="attr: { class: iconTypeTasviye }" data-column="Tasviye" class=""></i>
                                     </span>
                                 </th>
-                                <th data-column="SerialNumber">
-                                    <span data-column="SerialNumber">شماره مبنا</span>
-                                    <span data-bind="attr: { class: currentColumn() == 'SerialNumber' ? 'isVisible' : 'isHidden' }" class="isHidden">
-                                        <i data-bind="attr: { class: iconTypeSerialNumber }" data-column="SerialNumber" class=""></i>
-                                    </span>
-                                </th>
 
                                 <th>عملیات</th>
                             </tr>
@@ -68,10 +62,9 @@
                                 <td data-bind="text: $root.radif($index())" style="background-color: #d9d9d9;"></td>
                                 <td data-bind="text: DocNo"></td>
                                 <td data-bind="text: DocDate"></td>
-                                <td data-bind="text: Spec"></td>
+                                <td data-bind="text: Spec" style="width:40%"></td>
                                 <td data-bind="text: NumberToNumberString(TotalValue)" style="direction: ltr;"></td>
                                 <td style="direction: ltr; color: rgb(0, 0, 0);" data-bind="text: Tasviye, style: {color: TasviyeCode == 0 && ModeCode == 'SFCT' ? null : TasviyeCode == 1 ? 'blue' : ModeCode != 'SFCT' ?  'red' : 'green'}"></td>
-                                <td data-bind="text: SerialNumber"></td>
                                 <td>
                                     <a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
                                         <span class="caret"></span>
@@ -99,7 +92,6 @@
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterSpec, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTotalValue, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_5 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
                                 <td style="padding: 0px 3px;"><input data-bind="value: filterTasviye, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_1 form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
-                                <td style="padding: 0px 3px;"><input data-bind="value: filterSerialNumber, valueUpdate: 'afterkeydown', event:{ keydown : $root.SearchKeyDown }" type="text" class="type_4 int form-control" style="height: 2.4rem;direction: ltr;text-align: right;"> </td>
                                 <td style="background-color: #efb683;"></td>
                             </tr>
                         </tfoot>

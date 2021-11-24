@@ -242,7 +242,7 @@
                             <a class="useBlank" href=@Url.Action("Tiket","Home")>تیکت پشتیبانی</a>
                         </li>
                         <li id="CustAccount" class="rightClick">
-                            <a class="useBlank" href=@Url.Action("CustAccount","Home")>حساب</a>
+                            <a class="useBlank" href=@Url.Action("CustAccount","Home")>حساب مشتری</a>
                         </li>
                     </ul>
                 </li>
@@ -481,25 +481,26 @@
     </div>
 
 
+    <div class="modal fade" id="modal-Report" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" dir="ltr" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <div style="height:500px;overflow:auto;border: 1px #ddd solid;">
+                    </div>
+                </div>
+                <div style="padding: 0px; margin: 10px;">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script type="text/javascript">
-        sessionStorage.versionTitle = '@(WebTiket.Controllers.Unit.UnitPublic.titleVer)';
+        <div id="designerContent"></div>
+        <div id="viewerContent"></div>
+    </div>
 
-        sessionStorage.urlAFISanadIndex = '@Url.Action("Index", "AFISanad")';
-        sessionStorage.urlAFIFactorIndex = '@Url.Action("Index", "AFIFactor")';
-        sessionStorage.urlAFISanadAnbarIndex = '@Url.Action("Index", "AFISanadAnbar")';
-        sessionStorage.urlErjaIndex = '@Url.Action("Index", "ERJ")';
-
-        sessionStorage.urlTrzAcc = '@Url.Action("TrzAcc", "ReportAFI")';
-        sessionStorage.urlDftr = '@Url.Action("Dftr", "ReportAFI")';
-        sessionStorage.urlADocR = '@Url.Action("ADocR", "ReportAFI")';
-
-        sessionStorage.urlFDocR_S = '@Url.Action("FDocR_S","ReportAFI")';
-        sessionStorage.urlFDocR_P = '@Url.Action("FDocR_P","ReportAFI")';
-
-        sessionStorage.urlKrdx = '@Url.Action("Krdx", "ReportAFI")';
-        sessionStorage.urlIDocR = '@Url.Action("IDocR", "ReportAFI")';
-    </script>
 
 
     <script src="~/Content/js/app.min.js"></script>
