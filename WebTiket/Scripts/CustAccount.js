@@ -210,17 +210,16 @@
     }
 
 
-
+   
     self.ShowLinkPardakht = function (list) {
-        //callBackUrl = "https://www.karbordcomputer.ir/";
-        callBackUrl = "https://www.karbordcomputer.ir/";
-
+        callBackUrl = "https://www.karbordcomputer.ir/Pay/PaymentCallback";
+        random = Math.floor(Math.random() * 90000) + 10000;
         var SalePaymentRequestObject = {
             'CallBackUrl': callBackUrl,
             'LoginAccount': loginAccount,
             'Amount': list.TotalValue,
             'AdditionalData': '',
-            'OrderId': list.SerialNumber,
+            'OrderId': list.DocDate.substring(0, 4) + list.SerialNumber + random,
             'Originator': '',
         }
         ajaxFunction(SalePaymentUri, 'Post', SalePaymentRequestObject).done(function (dataLink) {
@@ -239,8 +238,18 @@
                     self.sortTableCustAccount();
                 });
 
-                window.open(uriPay, '_blank');
-                ConfirmPayment(token);
+
+                const win = window.open(uriPay, '_blank');
+
+                /*const timer = setInterval(() => {
+                    if (win.closed) {
+                        clearInterval(timer);
+                        ConfirmPayment(token);
+                    }
+                }, 500);*/
+
+                // window.open(uriPay, '_blank');
+
             }
             else {
                 return showNotification(dataLink.Message, 0)
