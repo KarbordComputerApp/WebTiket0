@@ -212,7 +212,7 @@
 
    
     self.ShowLinkPardakht = function (list) {
-        callBackUrl = "https://www.karbordcomputer.ir/Pay/PaymentCallback";
+        callBackUrl = "https://karbordcomputerapp.ir/Pay/PaymentCallback";
         random = Math.floor(Math.random() * 90000) + 10000;
         var SalePaymentRequestObject = {
             'CallBackUrl': callBackUrl,
