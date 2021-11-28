@@ -25,9 +25,9 @@
             LockNo: lockNumber,
         }
         ajaxFunction(CustAccountUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount + '/', 'Post', CustAccountObject).done(function (data) {
-            for (var i = 0; i < data.length; i++) {
+           /* for (var i = 0; i < data.length; i++) {
                 data[i].Tasviye = data[i].TasviyeCode == 0 && data[i].ModeCode == "SFCT" ? "پرداخت نشده" : data[i].TasviyeCode == 1 ? "در حال پرداخت" : data[i].ModeCode != "SFCT" ? "برگشتی" : "پرداخت شده"
-            }
+            }*/
             self.CustAccountList(data)
         });
     }
@@ -241,12 +241,13 @@
 
                 const win = window.open(uriPay, '_blank');
 
-                /*const timer = setInterval(() => {
+                const timer = setInterval(() => {
                     if (win.closed) {
                         clearInterval(timer);
-                        ConfirmPayment(token);
+                        getCustAccount;
+                        //ConfirmPayment(token);
                     }
-                }, 500);*/
+                }, 1000);
 
                 // window.open(uriPay, '_blank');
 

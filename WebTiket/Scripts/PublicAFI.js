@@ -740,7 +740,7 @@ function createDesigner() {
 function setReport(reportObject, addressMrt, variablesObject) {
     DataReport = reportObject;
     if (DataReport.length == 0 || DataReport == null || DataReport == "") {
-        return showNotification('ابتدا گزارش گیری کنید', 0);
+        return showNotification('فاکتور بدون بند', 0);
     }
 
     var dStart = new Date();
