@@ -665,7 +665,7 @@ function createViewer() {
     options.appearance.scrollbarsMode = true;
     options.toolbar.showSaveButton = true;
 
-    if (lockNumber == 10071) {
+    if (lockNumber == 10011 || lockNumber == 10071) {
         options.toolbar.showDesignButton = true;
         $('#DesignPrint').attr('style', 'display: unset');
     } else {

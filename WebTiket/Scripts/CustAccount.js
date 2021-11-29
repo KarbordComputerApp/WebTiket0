@@ -284,7 +284,7 @@
     self.ChapFactor = function (list) {
         printVariable = '"ReportDate":"' + DateNow + '",';
         getFDocP_CustAcount(list.DocDate.substring(0, 4), list.SerialNumber);
-        setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json', printVariable);
+        setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json?10', printVariable);
     };
 
     self.sortTableCustAccount();
