@@ -66,7 +66,7 @@
                                 <td data-bind="text: NumberToNumberString(TotalValue)" style="direction: ltr;"></td>
                                 <td style="direction: ltr; color: rgb(0, 0, 0);" data-bind="text: Tasviye, style: {color: TasviyeCode == 0 ? null : TasviyeCode == 1 ? 'blue' : TasviyeCode == 2 ? 'green' : 'red'}"></td>
                                 <td>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
+                                    <a  class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(50px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -76,7 +76,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-bind="click: $root.ChapFactor " style="font-size: 11px;text-align: right;">
+                                            <a data-bind="click: $root.ChapFactor , visible: DownloadCount != '2' " style="font-size: 11px;text-align: right;">
                                                 <img src="/Content/img/sanad/streamline-icon-print-text@48x48.png" width="16" height="16" style="margin-left:10px">چاپ فاکتور
                                             </a>
                                         </li>

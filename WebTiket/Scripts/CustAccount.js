@@ -10,6 +10,7 @@
     var PaymentConfirmUri = serverCustAccount + '/api/Shaparak/PaymentConfirm'; // آدرس تایید پرداخت  
     var CustAccountSaveUri = serverCustAccount + "/api/Web_Data/CustAccountSave/"; // آدرس ذخیره لینک پرداخت  
 
+
     var serialNumber = 0;
 
     var loginAccount = "NRlhOcngQl7BwNOhU104";
@@ -25,9 +26,9 @@
             LockNo: lockNumber,
         }
         ajaxFunction(CustAccountUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount + '/', 'Post', CustAccountObject).done(function (data) {
-           /* for (var i = 0; i < data.length; i++) {
-                data[i].Tasviye = data[i].TasviyeCode == 0 && data[i].ModeCode == "SFCT" ? "پرداخت نشده" : data[i].TasviyeCode == 1 ? "در حال پرداخت" : data[i].ModeCode != "SFCT" ? "برگشتی" : "پرداخت شده"
-            }*/
+            /* for (var i = 0; i < data.length; i++) {
+                 data[i].Tasviye = data[i].TasviyeCode == 0 && data[i].ModeCode == "SFCT" ? "پرداخت نشده" : data[i].TasviyeCode == 1 ? "در حال پرداخت" : data[i].ModeCode != "SFCT" ? "برگشتی" : "پرداخت شده"
+             }*/
             self.CustAccountList(data)
         });
     }
@@ -210,7 +211,7 @@
     }
 
 
-   
+
     self.ShowLinkPardakht = function (list) {
         callBackUrl = "https://karbordcomputerapp.ir/Pay/PaymentCallback";
         random = Math.floor(Math.random() * 90000) + 10000;
@@ -232,6 +233,7 @@
                     'Year': list.DocDate.substring(0, 4),
                     'SerialNumber': list.SerialNumber,
                     'OnlineParLink': uriPay,
+                    'DownloadCount': null,
                 }
                 ajaxFunction(CustAccountSaveUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount, 'Post', CustAccountSaveObject).done(function (dataSave) {
                     getCustAccount();
@@ -282,9 +284,36 @@
     createViewer();
 
     self.ChapFactor = function (list) {
-        printVariable = '"ReportDate":"' + DateNow + '",';
-        getFDocP_CustAcount(list.DocDate.substring(0, 4), list.SerialNumber);
-        setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json?10', printVariable);
+
+        count = list.DownloadCount == '' ? 1 : parseInt(list.DownloadCount) + 1;
+        Swal.fire({
+            title: 'تایید چاپ فاکتور',
+            text: (count == 1 ? "دو" : "یک")  + " بار امکان چاپ فاکتور وجود دارد.آیا چاپ شود؟",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'خیر',
+
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'بله'
+        }).then((result) => {
+            if (result.value) {
+                printVariable = '"ReportDate":"' + DateNow + '",';
+                getFDocP_CustAcount(list.DocDate.substring(0, 4), list.SerialNumber);
+                setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json?10', printVariable);
+
+                var CustAccountSaveObject = {
+                    'Year': list.DocDate.substring(0, 4),
+                    'SerialNumber': list.SerialNumber,
+                    'OnlineParLink': null,
+                    'DownloadCount': count,
+                }
+                ajaxFunction(CustAccountSaveUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount, 'Post', CustAccountSaveObject).done(function (dataSave) {
+                    getCustAccount();
+                });
+            }
+        })
+
     };
 
     self.sortTableCustAccount();
