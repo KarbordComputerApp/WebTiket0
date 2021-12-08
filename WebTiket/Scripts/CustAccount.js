@@ -17,6 +17,34 @@
 
     getDateServer();
 
+    createViewer();
+
+    //http://localhost:51091/Home/CustAccount/?1149463020080088&52&1384&2 
+    // has lock   &  serial  &  DownloadCount(f19)
+    url = window.location.href;
+    externalData = url.split('?')[1];
+    if (externalData != null) {
+        externalData = externalData.split('&');
+        serialNumber = externalData[1];
+        sal = externalData[2];
+        DownloadCount = externalData[3];
+
+        printVariable = '"ReportDate":"' + DateNow + '",';
+        getFDocP_CustAcount(sal, serialNumber);
+        setReport(self.FDocP_CustAcountList(), '/Content/Report/SFCT.json?10', printVariable);
+
+        var CustAccountSaveObject = {
+            'Year': sal,
+            'SerialNumber': serialNumber,
+            'OnlineParLink': null,
+            'DownloadCount': DownloadCount,
+        }
+        ajaxFunction(CustAccountSaveUri + aceCustAccount + '/' + salCustAccount + '/' + groupCustAccount, 'Post', CustAccountSaveObject).done(function (dataSave) {
+        });
+    }
+
+
+
     sort = localStorage.getItem("sortCustAccount");
     sortType = localStorage.getItem("sortTypeCustAccount");
 
@@ -281,14 +309,14 @@
     }
 
 
-    createViewer();
+
 
     self.ChapFactor = function (list) {
 
         count = list.DownloadCount == '' ? 1 : parseInt(list.DownloadCount) + 1;
         Swal.fire({
             title: 'تایید چاپ فاکتور',
-            text: (count == 1 ? "دو" : "یک")  + " بار امکان چاپ فاکتور وجود دارد.آیا چاپ شود؟",
+            text: (count == 1 ? "دو" : "یک") + " بار امکان چاپ فاکتور وجود دارد.آیا چاپ شود؟",
             type: 'info',
             showCancelButton: true,
             cancelButtonColor: '#3085d6',
@@ -317,6 +345,7 @@
     };
 
     self.sortTableCustAccount();
+
 };
 
 ko.applyBindings(new ViewModel());

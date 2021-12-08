@@ -72,6 +72,7 @@ function getAccountDataCustAccount(lock) {
 
 url = window.location.href;
 lock = url.split('?')[1];
+lock = lock.split('&')[0];
 
 
 
