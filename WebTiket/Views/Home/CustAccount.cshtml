@@ -66,7 +66,7 @@
                                 <td data-bind="text: NumberToNumberString(TotalValue)" style="direction: ltr;"></td>
                                 <td style="direction: ltr; color: rgb(0, 0, 0);" data-bind="text: Tasviye, style: {color: TasviyeCode == 0 ? null : TasviyeCode == 1 ? 'blue' : TasviyeCode == 2 ? 'green' : 'red'}"></td>
                                 <td>
-                                    <a  class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
+                                    <a data-bind="visible: TasviyeCode < 2 || DownloadCount != '2'"  class="dropdown-toggle" data-toggle="dropdown" style="padding:10px" aria-expanded="false">
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(50px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">

@@ -72,7 +72,8 @@ function getAccountDataCustAccount(lock) {
 
 url = window.location.href;
 lock = url.split('?')[1];
-lock = lock.split('&')[0];
+if (lock != null)
+    lock = lock.split('&')[0];
 
 
 
@@ -763,12 +764,12 @@ function setReport(reportObject, addressMrt, variablesObject) {
     report.regData(variablesDataSet.dataSetName, "", variablesDataSet);
 
 
-    
 
-   // titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
-   // titlesReport = '{"Titles":[{' + titlesObject + '}]}';
-   // titlesDataSet.readJson(titlesReport);
-   // report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
+
+    // titlesDataSet = new Stimulsoft.System.Data.DataSet("Titles");
+    // titlesReport = '{"Titles":[{' + titlesObject + '}]}';
+    // titlesDataSet.readJson(titlesReport);
+    // report.regData(titlesDataSet.dataSetName, "", titlesDataSet);
 
 
     report.dictionary.synchronize();
